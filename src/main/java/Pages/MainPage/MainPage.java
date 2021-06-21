@@ -1,57 +1,47 @@
 package Pages.MainPage;
 
+import Pages.MainPage.Components.ParcelSize;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+
 public class MainPage {
     private final WebDriver webDriver;
 
-    @FindBy(id = "option_deliveryType_boxmachine")
+    private final ParcelSize parcelSize;
+
+    @FindBy(css = "label[for = 'deliveryTypeboxmachine']")
     private WebElement deliveryP2P;
 
-    @FindBy(id = "option_deliveryType_address")
+    @FindBy(css = "label[for = 'deliveryTypeaddress']")
     private WebElement deliveryP2D;
 
-    @FindBy(id = "option_parcelSize_A")
-    private WebElement smallParcelOption;
-
-    @FindBy(id = "option_parcelSize_B")
-    private WebElement mediumParcelOption;
-
-    @FindBy(id = "option_parcelSize_C")
-    private WebElement bigParcelOption;
-
-    public MainPage(WebDriver webDriver) {
+    public MainPage(WebDriver webDriver, ParcelSize parcelSize) {
         this.webDriver = webDriver;
         PageFactory.initElements(this.webDriver, this);
+        this.parcelSize = parcelSize;
     }
 
-    public void chooseParcelSize(ParcelSize size) {
-        switch (size) {
-            case SMALL: {
-                smallParcelOption.click();
+    public void chooseParcelSize(ParcelSize.Size size) {
+        parcelSize.chooseParcelSize(size);
+    }
+
+    public void chooseDeliveryType(DeliveryType type) {
+        switch (type) {
+            case P2P: {
+                deliveryP2P.click();
                 break;
             }
-            case MEDIUM: {
-                mediumParcelOption.click();
-                break;
-            }
-            case BIG: {
-                bigParcelOption.click();
+            case P2D: {
+                deliveryP2D.click();
                 break;
             }
         }
     }
 
-    enum ParcelSize {
-        SMALL,
-        MEDIUM,
-        BIG
-    }
-
-    enum DeliveryType {
+    public enum DeliveryType {
         P2P,
         P2D
     }
