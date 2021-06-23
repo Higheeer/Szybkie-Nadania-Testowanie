@@ -1,6 +1,8 @@
 package Pages.MainPage;
 
+import Pages.MainPage.Components.DeliveryMethod;
 import Pages.MainPage.Components.ParcelSize;
+import Pages.MainPage.Utils.PageAction;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,6 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 public class MainPage {
     private final WebDriver webDriver;
 
+    private final DeliveryMethod deliveryMethod;
     private final ParcelSize parcelSize;
 
     @FindBy(css = "label[for = 'deliveryTypeboxmachine']")
@@ -18,32 +21,32 @@ public class MainPage {
     @FindBy(css = "label[for = 'deliveryTypeaddress']")
     private WebElement deliveryP2D;
 
-    public MainPage(WebDriver webDriver, ParcelSize parcelSize) {
+    public MainPage(WebDriver webDriver, DeliveryMethod deliveryMethod, ParcelSize parcelSize) {
         this.webDriver = webDriver;
         PageFactory.initElements(this.webDriver, this);
+        this.deliveryMethod = deliveryMethod;
         this.parcelSize = parcelSize;
     }
 
+    public void chooseDeliveryType(DeliveryMethod.Type type) {
+        deliveryMethod.choose(type);
+    }
+
     public void chooseParcelSize(ParcelSize.Size size) {
-        parcelSize.chooseParcelSize(size);
+        parcelSize.choose(size);
     }
 
-    public void chooseDeliveryType(DeliveryType type) {
-        switch (type) {
-            case P2P: {
-                deliveryP2P.click();
-                break;
-            }
-            case P2D: {
-                deliveryP2D.click();
-                break;
-            }
-        }
+    public boolean acceptTermsAndConditions() {
+        String name = "Regulaminem świadczenia usług pocztowych";
+
+        PageAction.checkCheckBox(name, webDriver);
+        return PageAction.isCheckedCheckBox(name, webDriver);
     }
 
-    public enum DeliveryType {
-        P2P,
-        P2D
-    }
+    public boolean acceptMarketingMessages() {
+        String name = "informacji handlowych dotyczących produktów";
 
+        PageAction.checkCheckBox(name, webDriver);
+        return PageAction.isCheckedCheckBox(name, webDriver);
+    }
 }
