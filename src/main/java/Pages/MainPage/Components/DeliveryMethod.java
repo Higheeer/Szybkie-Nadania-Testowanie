@@ -1,5 +1,6 @@
 package Pages.MainPage.Components;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,14 +12,8 @@ public class DeliveryMethod {
     @FindBy(css = "label[for='deliveryTypeboxmachine']")
     private WebElement p2pOption;
 
-    @FindBy(css = "input[id = 'deliveryTypeboxmachine']")
-    private WebElement p2pCheckBox;
-
     @FindBy(css = "label[for='deliveryTypeaddress']")
     private WebElement p2hOption;
-
-    @FindBy(css = "input[id='deliveryTypeaddress']")
-    private WebElement p2hCheckBox;
 
     public DeliveryMethod(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -39,11 +34,11 @@ public class DeliveryMethod {
     }
 
     public boolean isSelectedP2P() {
-        return p2pCheckBox.isSelected();
+        return p2pOption.findElement(By.xpath("//preceding-sibling::input[@id='deliveryTypeboxmachine']")).isSelected();
     }
 
     public boolean isSelectedP2H() {
-        return p2hCheckBox.isSelected();
+        return p2hOption.findElement(By.xpath("//preceding-sibling::input[@id='deliveryTypeaddress']")).isSelected();
     }
 
     public enum Type {

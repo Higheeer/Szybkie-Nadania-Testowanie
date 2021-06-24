@@ -1,5 +1,6 @@
 package Pages.MainPage.Components;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,20 +12,11 @@ public class ParcelSize {
     @FindBy(css = "label[for = 'parcelSizeA']")
     private WebElement smallParcelOption;
 
-    @FindBy(css = "input[id = 'parcelSizeA']")
-    private WebElement smallParcelCheckBox;
-
     @FindBy(css = "label[for = 'parcelSizeB']")
     private WebElement mediumParcelOption;
 
-    @FindBy(css = "input[id = 'parcelSizeB']")
-    private WebElement mediumParcelCheckBox;
-
     @FindBy(css = "label[for = 'parcelSizeC']")
     private WebElement largeParcelOption;
-
-    @FindBy(css = "input[id = 'parcelSizeC']")
-    private WebElement largeParcelCheckBox;
 
     public ParcelSize(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -49,15 +41,15 @@ public class ParcelSize {
     }
 
     public boolean isSelectedSmallParcel() {
-        return smallParcelCheckBox.isSelected();
+        return smallParcelOption.findElement(By.xpath("//preceding-sibling::input[@id='parcelSizeA']")).isSelected();
     }
 
     public boolean isSelectedMediumParcel() {
-        return mediumParcelCheckBox.isSelected();
+        return mediumParcelOption.findElement(By.xpath("//preceding-sibling::input[@id='parcelSizeB']")).isSelected();
     }
 
     public boolean isSelectedLargeParcel() {
-        return largeParcelCheckBox.isSelected();
+        return largeParcelOption.findElement(By.xpath("//preceding-sibling::input[@id='parcelSizeC']")).isSelected();
     }
 
     public enum Size {
