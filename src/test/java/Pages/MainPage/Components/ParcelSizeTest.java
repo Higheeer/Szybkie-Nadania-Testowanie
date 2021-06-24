@@ -1,32 +1,18 @@
 package Pages.MainPage.Components;
 
+import Pages.MainPage.Utils.Base;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ParcelSizeTest {
-    private static WebDriver webDriver;
+class ParcelSizeTest extends Base {
     private static DeliveryMethod deliveryMethod;
     private static ParcelSize parcelSize;
 
     @BeforeAll
     static void staticSetUp() {
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
-        webDriver = new ChromeDriver();
-        webDriver.manage().window().maximize();
-        webDriver.get("https://inpost.pl/SzybkieNadania/");
-        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         deliveryMethod = new DeliveryMethod(webDriver);
         parcelSize = new ParcelSize(webDriver);
-    }
-
-    @AfterAll
-    static void tearDown() {
-        webDriver.quit();
     }
 
     @Test
