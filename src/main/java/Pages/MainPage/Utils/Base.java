@@ -2,6 +2,7 @@ package Pages.MainPage.Utils;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -17,10 +18,11 @@ public abstract class Base {
         webDriver.manage().window().maximize();
         webDriver.get("https://inpost.pl/SzybkieNadania/");
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        webDriver.findElement(By.className("btn-cookie-trigger")).click();
     }
 
     @AfterAll
     public static void closeTestEnvironment() {
-        webDriver.quit();
+        //webDriver.quit();
     }
 }
