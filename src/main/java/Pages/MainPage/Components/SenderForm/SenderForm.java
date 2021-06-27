@@ -1,5 +1,9 @@
 package Pages.MainPage.Components.SenderForm;
 
+import Pages.MainPage.Components.SenderForm.Invoice.CompanyInvoice;
+import Pages.MainPage.Components.SenderForm.Invoice.ForeignCompanyInvoice;
+import Pages.MainPage.Components.SenderForm.Invoice.IndividualInvoice;
+import Pages.MainPage.Components.SenderForm.Invoice.Invoice;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,6 +20,8 @@ public class SenderForm {
 
     @FindBy(name = "senderAddress.phoneNum")
     private WebElement phoneNumberInput;
+
+    private Invoice invoice;
 
     public SenderForm(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -40,7 +46,28 @@ public class SenderForm {
         enterPhoneNumber(phoneNumber);
     }
 
-    enum InvoiceType{
+    public void chooseInvoice(InvoiceType type) {
+        switch (type) {
+            case COMPANY: {
+                invoice = new CompanyInvoice(webDriver);
+                break;
+            }
+            case INDIVIDUAL: {
+                invoice = new IndividualInvoice(webDriver);
+                break;
+            }
+            case FOREIGN_COMPANY: {
+                invoice = new ForeignCompanyInvoice(webDriver);
+                break;
+            }
+        }
+    }
+
+    public void fillInvoice(String... values) {
+        invoice.fill(values);
+    }
+
+    public enum InvoiceType {
         COMPANY,
         INDIVIDUAL,
         FOREIGN_COMPANY
