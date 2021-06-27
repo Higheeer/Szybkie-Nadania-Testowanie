@@ -17,12 +17,12 @@ public abstract class Base {
         webDriver = new ChromeDriver();
         webDriver.manage().window().maximize();
         webDriver.get("https://inpost.pl/SzybkieNadania/");
-        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         webDriver.findElement(By.className("btn-cookie-trigger")).click();
     }
 
     @AfterAll
     public static void closeTestEnvironment() {
-        //webDriver.quit();
+        webDriver.quit();
     }
 }
