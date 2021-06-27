@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class PageAction {
     public static void checkCheckBox(String name, WebDriver webDriver) {
@@ -31,13 +32,14 @@ public class PageAction {
     }
 
     public static void waitUntilClickable(WebElement webElement, WebDriver webDriver) {
-        WebDriverWait waiter = new WebDriverWait(webDriver, Duration.ofSeconds(5));
-        waiter.until(ExpectedConditions.elementToBeClickable(webElement));
+        (new WebDriverWait(webDriver, Duration.ofSeconds(5))).until(ExpectedConditions.elementToBeClickable(webElement));
     }
 
-    public static void waitUntilValueInserted(WebElement webElement, String value, WebDriver webDriver) {
-        WebDriverWait waiter = new WebDriverWait(webDriver, Duration.ofSeconds(5));
-        waiter.until(ExpectedConditions.textToBePresentInElementValue(webElement, value));
+    public static void wait(int interval) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(interval);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
-
 }
