@@ -36,7 +36,7 @@ public class RecipientP2P extends RecipientForm {
 
     protected void enterParcelLocker(String parcelLocker) {
         parcelLockerInput.sendKeys(parcelLocker);
-        new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(webDriver.findElement(By.id(parcelLocker))));
+        new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(By.id(parcelLocker)));
         parcelLockerInput.sendKeys(Keys.ENTER);
     }
 }
