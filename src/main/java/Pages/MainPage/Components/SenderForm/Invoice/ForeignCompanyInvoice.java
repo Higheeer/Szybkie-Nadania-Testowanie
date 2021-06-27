@@ -1,14 +1,16 @@
 package Pages.MainPage.Components.SenderForm.Invoice;
 
+import Pages.MainPage.Utils.PageAction;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ForeignCompany implements Invoice {
+public class ForeignCompanyInvoice implements Invoice {
     private final WebDriver webDriver;
 
-    @FindBy(css = "div.ng-input:nth-child(3) > input:nth-child(1)")
+    @FindBy(css = "app-complex-select > ng-select > div > div > div.ng-input > input[type=text]")
     private WebElement nipPrefixInput;
 
     @FindBy(name = "invoice.foreignCompany.nip")
@@ -17,14 +19,14 @@ public class ForeignCompany implements Invoice {
     @FindBy(name = "invoice.foreignCompany.companyName")
     private WebElement companyNameInput;
 
-    @FindBy(css = "app-section.col-12:nth-child(22) > div:nth-child(1) > app-input:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > app-complex-select:nth-child(1) > ng-select:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > input:nth-child(1)")
+    @FindBy(css = "#parcelForm > div > div.col-md-6.col-lg-7.col-xl-8 > app-dynamic-form > form > app-section:nth-child(22) > div > app-input > div > div > div > app-complex-select > ng-select > div > div > div.ng-input > input[type=text]")
     private WebElement countryInput;
 
     @FindBy(name = "invoice.foreignCompany.zipCode")
     private WebElement zipCodeInput;
 
-    @FindBy(name = "invoice.foreignCompany.city")
-    private WebElement cityInput;
+    @FindBy(name = "invoice.foreignCompany.town")
+    private WebElement townInput;
 
     @FindBy(name = "invoice.foreignCompany.street")
     private WebElement streetInput;
@@ -38,13 +40,13 @@ public class ForeignCompany implements Invoice {
     @FindBy(name = "invoice.foreignCompany.email")
     private WebElement emailInput;
 
-    public ForeignCompany(WebDriver webDriver) {
+    public ForeignCompanyInvoice(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(this.webDriver, this);
     }
 
     /**
-     * @param values NipPrefix, Nip, CompanyName, Country, ZipCode, City, Street, BuildingNumber, FlatNumber, Email
+     * @param values NipPrefix, Nip, CompanyName, Country, ZipCode, Town, Street, BuildingNumber, FlatNumber, Email
      */
     @Override
     public void fill(String... values) {
@@ -55,8 +57,9 @@ public class ForeignCompany implements Invoice {
         enterNip(values[1]);
         enterCompanyName(values[2]);
         enterCountry(values[3]);
+        PageAction.wait(200);
         enterZipCode(values[4]);
-        enterCity(values[5]);
+        enterTown(values[5]);
         enterStreet(values[6]);
         enterBuildingNumber(values[7]);
         enterFlatNumber(values[8]);
@@ -65,6 +68,7 @@ public class ForeignCompany implements Invoice {
 
     protected void enterNipPrefix(String prefix) {
         nipPrefixInput.sendKeys(prefix);
+        nipPrefixInput.sendKeys(Keys.ENTER);
     }
 
     protected void enterNip(String nip) {
@@ -77,26 +81,27 @@ public class ForeignCompany implements Invoice {
 
     protected void enterCountry(String country) {
         countryInput.sendKeys(country);
+        countryInput.sendKeys(Keys.ENTER);
     }
 
     protected void enterZipCode(String zipCode) {
         zipCodeInput.sendKeys(zipCode);
     }
 
-    protected void enterCity(String city) {
-        cityInput.sendKeys(city);
+    protected void enterTown(String town) {
+        townInput.sendKeys(town);
     }
 
     protected void enterStreet(String street) {
         streetInput.sendKeys(street);
     }
 
-    protected void enterBuildingNumber(String buildingNumber) {
-        buildingNumberInput.sendKeys(buildingNumber);
+    protected void enterBuildingNumber(String number) {
+        buildingNumberInput.sendKeys(number);
     }
 
-    protected void enterFlatNumber(String flatNumber) {
-        flatNumberInput.sendKeys(flatNumber);
+    protected void enterFlatNumber(String number) {
+        flatNumberInput.sendKeys(number);
     }
 
     protected void enterEmail(String email) {

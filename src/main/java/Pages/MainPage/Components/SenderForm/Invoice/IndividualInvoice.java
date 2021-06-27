@@ -1,22 +1,23 @@
 package Pages.MainPage.Components.SenderForm.Invoice;
 
 import Pages.MainPage.Utils.PageAction;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class Company implements Invoice {
+public class IndividualInvoice implements Invoice {
     private final WebDriver webDriver;
 
-    @FindBy(name = "invoice.company.nip")
-    private WebElement nipInput;
+    @FindBy(name = "invoice.individual.companyName")
+    private WebElement nameInput;
 
-    @FindBy(name = "invoice.company.companyName")
-    private WebElement companyNameInput;
+    @FindBy(name = "invoice.individual.email")
+    private WebElement emailInput;
 
-    @FindBy(name = "invoice.company.zipCode")
+    @FindBy(name = "invoice.individual.zipCode")
     private WebElement zipCodeInput;
 
     @FindBy(css = "app-selectpicker:nth-child(1) > ng-select:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)")
@@ -25,44 +26,43 @@ public class Company implements Invoice {
     @FindBy(css = "app-selectpicker:nth-child(1) > ng-select:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)")
     private WebElement streetInput;
 
-    @FindBy(name = "invoice.company.buildingNo")
+    @FindBy(name = "invoice.individual.buildingNo")
     private WebElement buildingNumberInput;
 
-    @FindBy(name = "invoice.company.flatNo")
+    @FindBy(name = "invoice.individual.flatNo")
     private WebElement flatNumberInput;
 
-    @FindBy(name = "invoice.company.email")
-    private WebElement emailInput;
+    @FindBy(tagName = "app-form-button")
+    private WebElement copySenderDataButton;
 
-    public Company(WebDriver webDriver) {
+    public IndividualInvoice(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(this.webDriver, this);
     }
 
     /**
-     * @param values Nip, CompanyName, ZipCode, Town, Street, BuildingNumber, FlatNumber, Email
+     * @param values Name, Email ,ZipCode, Town, Street, BuildingNumber, FlatNumber
      */
     @Override
     public void fill(String... values) {
-        if (values.length < 8)
+        if (values.length < 7)
             return;
 
-        enterNip(values[0]);
-        enterCompanyName(values[1]);
+        enterName(values[0]);
+        enterEmail(values[1]);
         enterZipCode(values[2]);
         enterTown(values[3]);
         enterStreet(values[4]);
         enterBuildingNumber(values[5]);
         enterFlatNumber(values[6]);
-        enterEmail(values[7]);
     }
 
-    protected void enterNip(String nip) {
-        nipInput.sendKeys(nip);
+    protected void enterName(String name) {
+        nameInput.sendKeys(name);
     }
 
-    protected void enterCompanyName(String companyName) {
-        companyNameInput.sendKeys(companyName);
+    protected void enterEmail(String email) {
+        emailInput.sendKeys(email);
     }
 
     protected void enterZipCode(String zipCode) {
@@ -81,16 +81,18 @@ public class Company implements Invoice {
         streetInput.sendKeys(Keys.ENTER);
     }
 
-    protected void enterBuildingNumber(String buildingNumber) {
-        buildingNumberInput.sendKeys(buildingNumber);
+    protected void enterBuildingNumber(String number) {
+        buildingNumberInput.sendKeys(number);
     }
 
-    protected void enterFlatNumber(String flatNumber) {
-        flatNumberInput.sendKeys(flatNumber);
+    protected void enterFlatNumber(String number) {
+        flatNumberInput.sendKeys(number);
     }
 
-    protected void enterEmail(String email) {
-        emailInput.sendKeys(email);
-    }
+    public boolean copySenderData() {
+        copySenderDataButton.click();
+        return nameInput.getAttribute("value").equals(webDriver.findElement(By.name("senderAddress.name")).getAttribute("value")) &&
+                emailInput.getAttribute("value").equals(webDriver.findElement(By.name("senderAddress.email")).getAttribute("value"));
 
+    }
 }
