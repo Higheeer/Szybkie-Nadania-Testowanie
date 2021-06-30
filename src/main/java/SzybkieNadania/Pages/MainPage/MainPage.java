@@ -2,11 +2,12 @@ package SzybkieNadania.Pages.MainPage;
 
 import SzybkieNadania.Pages.MainPage.Components.DeliveryMethod;
 import SzybkieNadania.Pages.MainPage.Components.ParcelSize;
+import SzybkieNadania.Pages.MainPage.Components.RecipientForm.RecipientAPM;
+import SzybkieNadania.Pages.MainPage.Components.RecipientForm.RecipientD2D;
 import SzybkieNadania.Pages.MainPage.Components.RecipientForm.RecipientForm;
-import SzybkieNadania.Pages.MainPage.Components.RecipientForm.RecipientP2H;
-import SzybkieNadania.Pages.MainPage.Components.RecipientForm.RecipientP2P;
 import SzybkieNadania.Pages.MainPage.Components.SenderForm.SenderForm;
 import SzybkieNadania.Utils.PageAction;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -38,12 +39,12 @@ public class MainPage {
     public void chooseDeliveryType(DeliveryMethod.Type type) {
         deliveryMethod.choose(type);
         switch (type) {
-            case P2P: {
-                recipientForm = new RecipientP2P(webDriver);
+            case APM: {
+                recipientForm = new RecipientAPM(webDriver);
                 break;
             }
-            case P2H: {
-                recipientForm = new RecipientP2H(webDriver);
+            case D2D: {
+                recipientForm = new RecipientD2D(webDriver);
                 break;
             }
         }
@@ -66,7 +67,7 @@ public class MainPage {
         senderForm.fillInvoice(values);
     }
 
-    public void wantAddExtraCourierComment(String comment){
+    public void wantAddExtraCourierComment(String comment) {
         recipientForm.fill(comment);
     }
 
@@ -82,10 +83,16 @@ public class MainPage {
     }
 
     public void submit() {
-        submitButton.click();
+        PageAction.waitUntilClickableAndClick(submitButton, webDriver);
     }
 
     public void payFor() {
-        PageAction.waitUntilIsVisibleAndClick(payButton, webDriver);
+        try {
+            PageAction.waitUntilIsVisibleAndClick(payButton, webDriver);
+        } catch (TimeoutException e) {
+            submit();
+            payFor();
+        }
+
     }
 }
