@@ -1,9 +1,10 @@
-package Pages.MainPage.Components.SenderForm;
+package SzybkieNadania.Pages.MainPage.Components.SenderForm;
 
-import Pages.MainPage.Components.SenderForm.Invoice.CompanyInvoice;
-import Pages.MainPage.Components.SenderForm.Invoice.ForeignCompanyInvoice;
-import Pages.MainPage.Components.SenderForm.Invoice.IndividualInvoice;
-import Pages.MainPage.Components.SenderForm.Invoice.Invoice;
+import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.CompanyInvoice;
+import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.ForeignCompanyInvoice;
+import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.IndividualInvoice;
+import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.Invoice;
+import SzybkieNadania.Utils.PageAction;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -47,17 +48,22 @@ public class SenderForm {
     }
 
     public void chooseInvoice(InvoiceType type) {
+        PageAction.checkCheckBox("Chcę otrzymać fakturę", webDriver);
+
         switch (type) {
             case COMPANY: {
                 invoice = new CompanyInvoice(webDriver);
+                PageAction.checkCheckBox("Firma w Polsce", webDriver);
                 break;
             }
             case INDIVIDUAL: {
                 invoice = new IndividualInvoice(webDriver);
+                PageAction.checkCheckBox("Osoba prywatna", webDriver);
                 break;
             }
             case FOREIGN_COMPANY: {
                 invoice = new ForeignCompanyInvoice(webDriver);
+                PageAction.checkCheckBox("Firma za granicą", webDriver);
                 break;
             }
         }
