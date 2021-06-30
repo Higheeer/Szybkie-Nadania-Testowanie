@@ -40,15 +40,29 @@ public class ParcelSize {
         }
     }
 
-    public boolean isSelectedSmallParcel() {
+    public Size isSelected(){
+        if(isSelectedSmallParcel() && !isSelectedMediumParcel() && !isSelectedLargeParcel()){
+            return Size.SMALL;
+        }
+        if(isSelectedMediumParcel() && !isSelectedSmallParcel() && !isSelectedLargeParcel()){
+            return Size.MEDIUM;
+        }
+        if(isSelectedLargeParcel() && !isSelectedSmallParcel() && !isSelectedMediumParcel()){
+            return Size.LARGE;
+        }
+
+        return null;
+    }
+
+    private boolean isSelectedSmallParcel() {
         return smallParcelOption.findElement(By.xpath("//preceding-sibling::input[@id='parcelSizeA']")).isSelected();
     }
 
-    public boolean isSelectedMediumParcel() {
+    private boolean isSelectedMediumParcel() {
         return mediumParcelOption.findElement(By.xpath("//preceding-sibling::input[@id='parcelSizeB']")).isSelected();
     }
 
-    public boolean isSelectedLargeParcel() {
+    private boolean isSelectedLargeParcel() {
         return largeParcelOption.findElement(By.xpath("//preceding-sibling::input[@id='parcelSizeC']")).isSelected();
     }
 
