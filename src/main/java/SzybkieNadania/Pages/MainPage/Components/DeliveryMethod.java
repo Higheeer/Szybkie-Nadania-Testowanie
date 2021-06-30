@@ -22,11 +22,11 @@ public class DeliveryMethod {
 
     public void choose(Type type) {
         switch (type) {
-            case P2P: {
+            case APM: {
                 p2pOption.click();
                 break;
             }
-            case P2H: {
+            case D2D: {
                 p2hOption.click();
                 break;
             }
@@ -42,7 +42,7 @@ public class DeliveryMethod {
     }
 
     public enum Type {
-        P2P,
-        P2H
+        APM,
+        D2D
     }
 }
