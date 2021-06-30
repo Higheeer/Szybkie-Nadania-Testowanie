@@ -1,4 +1,4 @@
-package Pages.MainPage.Utils;
+package SzybkieNadania.Utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,11 +11,25 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class PageAction {
+
+    public static void closeCookies(WebDriver webDriver) {
+        closeMiddleCookies(webDriver);
+        closeBottomCookies(webDriver);
+    }
+
+    public static void closeMiddleCookies(WebDriver webDriver) {
+        (new WebDriverWait(webDriver, Duration.ofSeconds(5))).until(ExpectedConditions.visibilityOfElementLocated(By.id("onetrust-accept-btn-handler"))).click();
+    }
+
+    public static void closeBottomCookies(WebDriver webDriver) {
+        (new WebDriverWait(webDriver, Duration.ofSeconds(5))).until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-cookie-trigger"))).click();
+    }
+
     public static void checkCheckBox(String name, WebDriver webDriver) {
         List<WebElement> checkBoxes = webDriver.findElements(By.className("checkbox"));
         for (WebElement checkBox : checkBoxes) {
             if (checkBox.getText().contains(name)) {
-                checkBox.click();
+                waitUntilIsVisibleAndClick(checkBox, webDriver);
                 break;
             }
         }
@@ -33,6 +47,14 @@ public class PageAction {
 
     public static void waitUntilClickable(WebElement webElement, WebDriver webDriver) {
         (new WebDriverWait(webDriver, Duration.ofSeconds(5))).until(ExpectedConditions.elementToBeClickable(webElement));
+    }
+
+    public static void waitUntilClickableAndSendKeys(WebElement webElement, String value, WebDriver webDriver) {
+        (new WebDriverWait(webDriver, Duration.ofSeconds(5))).until(ExpectedConditions.elementToBeClickable(webElement)).sendKeys(value);
+    }
+
+    public static void waitUntilIsVisibleAndClick(WebElement webElement, WebDriver webDriver) {
+        (new WebDriverWait(webDriver, Duration.ofSeconds(5))).until(ExpectedConditions.visibilityOf(webElement)).click();
     }
 
     public static void wait(int interval) {
