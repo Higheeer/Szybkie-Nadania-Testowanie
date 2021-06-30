@@ -6,6 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class CompanyInvoice implements Invoice {
     private final WebDriver webDriver;
@@ -46,19 +50,9 @@ public class CompanyInvoice implements Invoice {
     public void fill(String... values) {
         if (values.length == 1) {
             enterNip(values[0]);
+
+            new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.attributeToBeNotEmpty(companyNameInput, "value"));
         }
-
-        if (values.length < 8)
-            return;
-
-        enterNip(values[0]);
-        enterCompanyName(values[1]);
-        enterZipCode(values[2]);
-        enterTown(values[3]);
-        enterStreet(values[4]);
-        enterBuildingNumber(values[5]);
-        enterFlatNumber(values[6]);
-        enterEmail(values[7]);
     }
 
     protected void enterNip(String nip) {
