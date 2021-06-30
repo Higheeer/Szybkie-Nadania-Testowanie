@@ -1,12 +1,12 @@
-package Pages.MainPage;
+package SzybkieNadania.Pages.MainPage;
 
-import Pages.MainPage.Components.DeliveryMethod;
-import Pages.MainPage.Components.ParcelSize;
-import Pages.MainPage.Components.RecipientForm.RecipientForm;
-import Pages.MainPage.Components.RecipientForm.RecipientP2H;
-import Pages.MainPage.Components.RecipientForm.RecipientP2P;
-import Pages.MainPage.Components.SenderForm.SenderForm;
-import Pages.MainPage.Utils.PageAction;
+import SzybkieNadania.Pages.MainPage.Components.DeliveryMethod;
+import SzybkieNadania.Pages.MainPage.Components.ParcelSize;
+import SzybkieNadania.Pages.MainPage.Components.RecipientForm.RecipientForm;
+import SzybkieNadania.Pages.MainPage.Components.RecipientForm.RecipientP2H;
+import SzybkieNadania.Pages.MainPage.Components.RecipientForm.RecipientP2P;
+import SzybkieNadania.Pages.MainPage.Components.SenderForm.SenderForm;
+import SzybkieNadania.Utils.PageAction;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,12 +16,15 @@ public class MainPage {
     private final WebDriver webDriver;
     private final DeliveryMethod deliveryMethod;
     private final ParcelSize parcelSize;
+    private final SenderForm senderForm;
 
-    @FindBy(css = "div[id = 'parcelFormButton'] > button")
+    @FindBy(css = "#terms + div")
+    private WebElement termsCheckBoxButton;
+    @FindBy(css = "#parcelFormButton > button")
     private WebElement submitButton;
-
+    @FindBy(css = "div.d-flex.justify-content-between.buttons > div:nth-child(2) > button")
+    private WebElement payButton;
     private RecipientForm recipientForm;
-    private SenderForm senderForm;
 
     public MainPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -29,6 +32,7 @@ public class MainPage {
 
         this.deliveryMethod = new DeliveryMethod(this.webDriver);
         this.parcelSize = new ParcelSize(this.webDriver);
+        this.senderForm = new SenderForm(webDriver);
     }
 
     public void chooseDeliveryType(DeliveryMethod.Type type) {
@@ -62,11 +66,12 @@ public class MainPage {
         senderForm.fillInvoice(values);
     }
 
-    public boolean acceptTermsAndConditions() {
-        String name = "Regulaminem świadczenia usług pocztowych";
+    public void wantAddExtraCourierComment(String comment){
+        recipientForm.fill(comment);
+    }
 
-        PageAction.checkCheckBox(name, webDriver);
-        return PageAction.isCheckedCheckBox(name, webDriver);
+    public void acceptTermsAndConditions() {
+        termsCheckBoxButton.click();
     }
 
     public boolean acceptMarketingMessages() {
@@ -78,5 +83,9 @@ public class MainPage {
 
     public void submit() {
         submitButton.click();
+    }
+
+    public void payFor() {
+        PageAction.waitUntilIsVisibleAndClick(payButton, webDriver);
     }
 }
