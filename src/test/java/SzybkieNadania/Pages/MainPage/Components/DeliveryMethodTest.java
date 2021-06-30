@@ -1,6 +1,6 @@
-package Pages.MainPage.Components;
+package SzybkieNadania.Pages.MainPage.Components;
 
-import Pages.MainPage.Utils.Base;
+import SzybkieNadania.Utils.Base;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
