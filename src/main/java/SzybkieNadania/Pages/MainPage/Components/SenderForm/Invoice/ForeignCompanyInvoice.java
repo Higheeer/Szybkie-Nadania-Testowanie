@@ -1,6 +1,6 @@
-package Pages.MainPage.Components.SenderForm.Invoice;
+package SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice;
 
-import Pages.MainPage.Utils.PageAction;
+import SzybkieNadania.Utils.PageAction;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -57,7 +57,7 @@ public class ForeignCompanyInvoice implements Invoice {
         enterNip(values[1]);
         enterCompanyName(values[2]);
         enterCountry(values[3]);
-        PageAction.wait(200);
+        PageAction.wait(500);
         enterZipCode(values[4]);
         enterTown(values[5]);
         enterStreet(values[6]);
@@ -85,15 +85,17 @@ public class ForeignCompanyInvoice implements Invoice {
     }
 
     protected void enterZipCode(String zipCode) {
-        zipCodeInput.sendKeys(zipCode);
+        PageAction.waitUntilClickableAndSendKeys(zipCodeInput, zipCode, webDriver);
+        townInput.sendKeys(Keys.ENTER);
     }
 
     protected void enterTown(String town) {
-        townInput.sendKeys(town);
+        PageAction.waitUntilClickableAndSendKeys(townInput, town, webDriver);
+        townInput.sendKeys(Keys.ENTER);
     }
 
     protected void enterStreet(String street) {
-        streetInput.sendKeys(street);
+        PageAction.waitUntilClickableAndSendKeys(streetInput, street, webDriver);
     }
 
     protected void enterBuildingNumber(String number) {

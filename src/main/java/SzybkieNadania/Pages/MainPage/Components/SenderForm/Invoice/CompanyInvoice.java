@@ -1,6 +1,6 @@
-package Pages.MainPage.Components.SenderForm.Invoice;
+package SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice;
 
-import Pages.MainPage.Utils.PageAction;
+import SzybkieNadania.Utils.PageAction;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -44,6 +44,10 @@ public class CompanyInvoice implements Invoice {
      */
     @Override
     public void fill(String... values) {
+        if (values.length == 1) {
+            enterNip(values[0]);
+        }
+
         if (values.length < 8)
             return;
 
@@ -90,6 +94,7 @@ public class CompanyInvoice implements Invoice {
     }
 
     protected void enterEmail(String email) {
+        PageAction.waitUntilClickable(emailInput, webDriver);
         emailInput.sendKeys(email);
     }
 
