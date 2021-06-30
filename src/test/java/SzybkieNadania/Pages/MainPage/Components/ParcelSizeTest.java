@@ -2,10 +2,10 @@ package SzybkieNadania.Pages.MainPage.Components;
 
 import SzybkieNadania.Utils.Base;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ParcelSizeTest extends Base {
     private static DeliveryMethod deliveryMethod;
@@ -17,52 +17,25 @@ class ParcelSizeTest extends Base {
         parcelSize = new ParcelSize(webDriver);
     }
 
-    @Test
-    @Tag("P2P")
-    void shouldChooseSmallSizeWhenP2PIsSelected() {
+    @ParameterizedTest
+    @EnumSource(ParcelSize.Size.class)
+    void shouldChooseCorrectSizeWhenSizeGivenAndDeliveryMethodIsAPM(ParcelSize.Size size) {
         deliveryMethod.choose(DeliveryMethod.Type.APM);
-        parcelSize.choose(ParcelSize.Size.SMALL);
-        assertTrue(parcelSize.isSelectedSmallParcel() && !parcelSize.isSelectedMediumParcel() && !parcelSize.isSelectedLargeParcel());
+
+        parcelSize.choose(size);
+
+        assertEquals(size, parcelSize.isSelected());
     }
 
-    @Test
-    @Tag("P2P")
-    void shouldChooseMediumSizeWhenP2PIsSelected() {
-        deliveryMethod.choose(DeliveryMethod.Type.APM);
-        parcelSize.choose(ParcelSize.Size.MEDIUM);
-        assertTrue(parcelSize.isSelectedMediumParcel() && !parcelSize.isSelectedSmallParcel() && !parcelSize.isSelectedLargeParcel());
-    }
-
-    @Test
-    @Tag("P2P")
-    void shouldChooseLargeSizeWhenP2PIsSelected() {
-        deliveryMethod.choose(DeliveryMethod.Type.APM);
-        parcelSize.choose(ParcelSize.Size.LARGE);
-        assertTrue(parcelSize.isSelectedLargeParcel() && !parcelSize.isSelectedSmallParcel() && !parcelSize.isSelectedMediumParcel());
-    }
-
-    @Test
-    @Tag("P2H")
-    void shouldChooseSmallSizeWhenP2HIsSelected() {
+    @ParameterizedTest
+    @EnumSource(ParcelSize.Size.class)
+    void shouldChooseCorrectSizeWhenSizeGivenAndDeliveryMethodIsD2D(ParcelSize.Size size) {
         deliveryMethod.choose(DeliveryMethod.Type.D2D);
-        parcelSize.choose(ParcelSize.Size.SMALL);
-        assertTrue(parcelSize.isSelectedSmallParcel() && !parcelSize.isSelectedMediumParcel() && !parcelSize.isSelectedLargeParcel());
+
+        parcelSize.choose(size);
+
+        assertEquals(size, parcelSize.isSelected());
     }
 
-    @Test
-    @Tag("P2H")
-    void shouldChooseMediumSizeWhenP2HIsSelected() {
-        deliveryMethod.choose(DeliveryMethod.Type.D2D);
-        parcelSize.choose(ParcelSize.Size.MEDIUM);
-        assertTrue(parcelSize.isSelectedMediumParcel() && !parcelSize.isSelectedSmallParcel() && !parcelSize.isSelectedLargeParcel());
-    }
-
-    @Test
-    @Tag("P2H")
-    void shouldChooseLargeSizeWhenP2HIsSelected() {
-        deliveryMethod.choose(DeliveryMethod.Type.D2D);
-        parcelSize.choose(ParcelSize.Size.LARGE);
-        assertTrue(parcelSize.isSelectedLargeParcel() && !parcelSize.isSelectedSmallParcel() && !parcelSize.isSelectedMediumParcel());
-    }
 
 }
