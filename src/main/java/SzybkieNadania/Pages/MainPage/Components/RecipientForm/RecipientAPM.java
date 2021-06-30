@@ -43,7 +43,15 @@ public class RecipientAPM extends RecipientForm {
         parcelLockerInput.sendKeys(Keys.ENTER);
     }
 
-    protected String getParcelLocker(){
+    protected String getParcelLocker() {
         return parcelLockerInput.getAttribute("value");
+    }
+
+    protected boolean getParcelLockerError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-boxMachineName']/following-sibling::small")).isDisplayed();
+    }
+
+    protected void clearParcelLocker() {
+        parcelLockerInput.clear();
     }
 }
