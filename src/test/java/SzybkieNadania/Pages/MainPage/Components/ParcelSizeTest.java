@@ -1,16 +1,18 @@
-package Pages.MainPage.Components;
+package SzybkieNadania.Pages.MainPage.Components;
 
-import Pages.MainPage.Utils.Base;
-import org.junit.jupiter.api.*;
+import SzybkieNadania.Utils.Base;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ParcelSizeTest extends Base {
     private static DeliveryMethod deliveryMethod;
     private static ParcelSize parcelSize;
 
     @BeforeAll
-    static void staticSetUp() {
+    static void staticSetup() {
         deliveryMethod = new DeliveryMethod(webDriver);
         parcelSize = new ParcelSize(webDriver);
     }
