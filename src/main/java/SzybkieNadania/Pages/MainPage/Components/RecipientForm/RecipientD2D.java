@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class RecipientP2H extends RecipientForm {
+public class RecipientD2D extends RecipientForm {
     @FindBy(name = "targetAddress.zipCode")
     private WebElement zipCodeInput;
 
@@ -28,7 +28,7 @@ public class RecipientP2H extends RecipientForm {
     @FindBy(name = "targetAddress.flatNo")
     private WebElement flatNumberInput;
 
-    public RecipientP2H(WebDriver webDriver) {
+    public RecipientD2D(WebDriver webDriver) {
         super(webDriver);
         PageFactory.initElements(this.webDriver, this);
     }
