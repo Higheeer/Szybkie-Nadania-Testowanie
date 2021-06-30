@@ -1,4 +1,4 @@
-package Pages.MainPage.Components;
+package SzybkieNadania.Pages.MainPage.Components;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
