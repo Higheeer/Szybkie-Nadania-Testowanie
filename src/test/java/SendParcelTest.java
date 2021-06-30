@@ -43,7 +43,7 @@ public class SendParcelTest {
 
     @Nested
     @DisplayName("Test cases for sending P2P parcel")
-    class SendP2PParcel {
+    class SendAPMParcel {
         @BeforeEach
         void setup() {
             mainPage = new MainPage(webDriver);
@@ -54,7 +54,7 @@ public class SendParcelTest {
 
         @ParameterizedTest
         @EnumSource(ParcelSize.Size.class)
-        void shouldMakeP2PParcelWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
+        void shouldMakeAPMParcelWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
             mainPage.chooseParcelSize(size);
             mainPage.acceptTermsAndConditions();
             mainPage.submit();
@@ -68,7 +68,7 @@ public class SendParcelTest {
 
         @ParameterizedTest
         @EnumSource(ParcelSize.Size.class)
-        void shouldMakeP2PParcelWithCompanyInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
+        void shouldMakeAPMParcelWithCompanyInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
             mainPage.chooseParcelSize(size);
             mainPage.wantInvoice(SenderForm.InvoiceType.COMPANY, "1010000338");
             mainPage.acceptTermsAndConditions();
@@ -83,7 +83,7 @@ public class SendParcelTest {
 
         @ParameterizedTest
         @EnumSource(ParcelSize.Size.class)
-        void shouldMakeP2PParcelWithIndividualInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
+        void shouldMakeAPMParcelWithIndividualInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
             mainPage.chooseParcelSize(size);
             mainPage.wantInvoice(SenderForm.InvoiceType.INDIVIDUAL, "Eryk", "wpl@wp.pl", "31-513", "Kraków", "Olszańska", "25", "31");
             mainPage.acceptTermsAndConditions();
@@ -98,7 +98,7 @@ public class SendParcelTest {
 
         @ParameterizedTest
         @EnumSource(ParcelSize.Size.class)
-        void shouldMakeP2PParcelWithForeignCompanyInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
+        void shouldMakeAPMParcelWithForeignCompanyInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
             mainPage.chooseParcelSize(size);
             mainPage.wantInvoice(SenderForm.InvoiceType.FOREIGN_COMPANY, "BG", "999999999", "Interactive Museum of Industry", "Bułgaria", "5300", "Gabrovo", "Nikolaevska", "3", "", "bulgarskaMoc@wp.pl");
             mainPage.acceptTermsAndConditions();
@@ -115,7 +115,7 @@ public class SendParcelTest {
 
     @Nested
     @DisplayName("Test cases for sending P2H parcel")
-    class SendP2HParcel {
+    class SendD2DParcel {
         @BeforeEach
         void setup() {
             mainPage = new MainPage(webDriver);
@@ -126,7 +126,7 @@ public class SendParcelTest {
 
         @ParameterizedTest
         @EnumSource(ParcelSize.Size.class)
-        void shouldMakeP2HParcelWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
+        void shouldMakeD2DParcelWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
             mainPage.chooseParcelSize(size);
             mainPage.acceptTermsAndConditions();
             mainPage.submit();
@@ -140,7 +140,7 @@ public class SendParcelTest {
 
         @ParameterizedTest
         @EnumSource(ParcelSize.Size.class)
-        void shouldMakeP2HParcelWithExtraCourierCommentWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
+        void shouldMakeD2DParcelWithExtraCourierCommentWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
             mainPage.chooseParcelSize(size);
             mainPage.wantAddExtraCourierComment("Uwaga na sąsiada");
             mainPage.acceptTermsAndConditions();
@@ -155,7 +155,7 @@ public class SendParcelTest {
 
         @ParameterizedTest
         @EnumSource(ParcelSize.Size.class)
-        void shouldMakeP2HParcelWithCompanyInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
+        void shouldMakeD2DParcelWithCompanyInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
             mainPage.chooseParcelSize(size);
             mainPage.wantInvoice(SenderForm.InvoiceType.COMPANY, "1010000338");
             mainPage.acceptTermsAndConditions();
@@ -170,7 +170,7 @@ public class SendParcelTest {
 
         @ParameterizedTest
         @EnumSource(ParcelSize.Size.class)
-        void shouldMakeP2HParcelWithIndividualInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
+        void shouldMakeD2DParcelWithIndividualInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
             mainPage.chooseParcelSize(size);
             mainPage.wantInvoice(SenderForm.InvoiceType.INDIVIDUAL, "Eryk", "wpl@wp.pl", "31-513", "Kraków", "Olszańska", "25", "31");
             mainPage.acceptTermsAndConditions();
@@ -185,7 +185,7 @@ public class SendParcelTest {
 
         @ParameterizedTest
         @EnumSource(ParcelSize.Size.class)
-        void shouldMakeP2HParcelWithForeignCompanyInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
+        void shouldMakeD2DParcelWithForeignCompanyInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
             mainPage.chooseParcelSize(size);
             mainPage.wantInvoice(SenderForm.InvoiceType.FOREIGN_COMPANY, "BG", "999999999", "Interactive Museum of Industry", "Bułgaria", "5300", "Gabrovo", "Nikolaevska", "3", "", "bulgarskaMoc@wp.pl");
             mainPage.acceptTermsAndConditions();
@@ -200,7 +200,7 @@ public class SendParcelTest {
 
         @ParameterizedTest
         @EnumSource(ParcelSize.Size.class)
-        void shouldMakeP2HParcelWithExtraCourierCommentAndCompanyInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
+        void shouldMakeD2DParcelWithExtraCourierCommentAndCompanyInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
             mainPage.chooseParcelSize(size);
             mainPage.wantAddExtraCourierComment("Uwaga na sąsiada");
             mainPage.wantInvoice(SenderForm.InvoiceType.COMPANY, "1010000338");
@@ -216,7 +216,7 @@ public class SendParcelTest {
 
         @ParameterizedTest
         @EnumSource(ParcelSize.Size.class)
-        void shouldMakeP2HParcelWithExtraCourierCommentAndIndividualInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
+        void shouldMakeD2DParcelWithExtraCourierCommentAndIndividualInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
             mainPage.chooseParcelSize(size);
             mainPage.wantAddExtraCourierComment("Uwaga na sąsiada");
             mainPage.wantInvoice(SenderForm.InvoiceType.INDIVIDUAL, "Eryk", "wpl@wp.pl", "31-513", "Kraków", "Olszańska", "25", "31");
@@ -232,7 +232,7 @@ public class SendParcelTest {
 
         @ParameterizedTest
         @EnumSource(ParcelSize.Size.class)
-        void shouldMakeP2HParcelWithExtraCourierCommentAndForeignCompanyInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
+        void shouldMakeD2DParcelWithExtraCourierCommentAndForeignCompanyInvoiceWhenCorrectDetailsAreGiven(ParcelSize.Size size) {
             mainPage.chooseParcelSize(size);
             mainPage.wantAddExtraCourierComment("Uwaga na sąsiada");
             mainPage.wantInvoice(SenderForm.InvoiceType.FOREIGN_COMPANY, "BG", "999999999", "Interactive Museum of Industry", "Bułgaria", "5300", "Gabrovo", "Nikolaevska", "3", "", "bulgarskaMoc@wp.pl");
