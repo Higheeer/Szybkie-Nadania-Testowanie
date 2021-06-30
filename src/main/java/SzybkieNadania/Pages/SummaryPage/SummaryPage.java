@@ -2,6 +2,7 @@ package SzybkieNadania.Pages.SummaryPage;
 
 import SzybkieNadania.Utils.PageAction;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,25 +11,29 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.Optional;
 
 public class SummaryPage {
     private final WebDriver webDriver;
 
     @FindBy(css = "#publicPage > div.container.full-height > app-summary > section:nth-child(2) > div > div:nth-child(2) > div > button > span")
-    private final Optional<WebElement> refreshButton;
+    private WebElement refreshButton;
 
     public SummaryPage(WebDriver webDriver) {
-        refreshButton = Optional.empty();
         this.webDriver = webDriver;
         PageFactory.initElements(this.webDriver, this);
     }
 
     public SummaryPage refresh() {
-        while (refreshButton.isPresent()) {
-            refreshButton.get().click();
-            PageAction.wait(1000);
+        try {
+            while (refreshButton.isDisplayed()) {
+                refreshButton.click();
+                PageAction.wait(1000);
+            }
+
+        } catch (NoSuchElementException e) {
+
         }
+
         return this;
     }
 
@@ -38,4 +43,3 @@ public class SummaryPage {
 }
 
 
-//"#publicPage > div.container.full-height > app-summary > section:nth-child(2) > div > div:nth-child(2) > div > button > span"
