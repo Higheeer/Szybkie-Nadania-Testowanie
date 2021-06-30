@@ -15,7 +15,7 @@ import org.openqa.selenium.TimeoutException;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class RecipientTest extends Base {
+public class RecipientFormTest extends Base {
     @BeforeAll
     static void staticSetup() {
     }

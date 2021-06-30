@@ -1,3 +1,5 @@
+package SzybkieNadania.sendParcel;
+
 import SzybkieNadania.Pages.MainPage.Components.DeliveryMethod;
 import SzybkieNadania.Pages.MainPage.Components.ParcelSize;
 import SzybkieNadania.Pages.MainPage.Components.SenderForm.SenderForm;
