@@ -1,5 +1,6 @@
-package Pages.MainPage.Components.RecipientForm;
+package SzybkieNadania.Pages.MainPage.Components.RecipientForm;
 
+import SzybkieNadania.Utils.PageAction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +15,8 @@ import java.time.Duration;
 public class RecipientP2P extends RecipientForm {
     @FindBy(css = "#parcelForm > div > div.col-md-6.col-lg-7.col-xl-8 > app-dynamic-form > form > app-section.bottom.col-12.pb-4.sections-combined > div > app-input > div.flex-column.flex-1 > div > div > app-points-select > ng-select > div > div > div.ng-input > input[type=text]")
     private WebElement parcelLockerInput;
+    @FindBy(id = "error-boxMachineName")
+    private WebElement parcelLockerError;
 
     public RecipientP2P(WebDriver webDriver) {
         super(webDriver);
@@ -35,8 +38,12 @@ public class RecipientP2P extends RecipientForm {
     }
 
     protected void enterParcelLocker(String parcelLocker) {
-        parcelLockerInput.sendKeys(parcelLocker);
+        PageAction.waitUntilClickableAndSendKeys(parcelLockerInput, parcelLocker.toUpperCase(), webDriver);
         new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(By.id(parcelLocker)));
         parcelLockerInput.sendKeys(Keys.ENTER);
+    }
+
+    protected String getParcelLocker(){
+        return parcelLockerInput.getAttribute("value");
     }
 }

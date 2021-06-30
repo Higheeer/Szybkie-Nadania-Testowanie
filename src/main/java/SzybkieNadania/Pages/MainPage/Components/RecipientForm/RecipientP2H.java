@@ -1,11 +1,16 @@
-package Pages.MainPage.Components.RecipientForm;
+package SzybkieNadania.Pages.MainPage.Components.RecipientForm;
 
-import Pages.MainPage.Utils.PageAction;
+import SzybkieNadania.Utils.PageAction;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class RecipientP2H extends RecipientForm {
     @FindBy(name = "targetAddress.zipCode")
@@ -33,6 +38,11 @@ public class RecipientP2H extends RecipientForm {
      */
     @Override
     public void fill(String... values) {
+        if (values.length == 1) {
+            PageAction.checkCheckBox("Chcę podać dodatkowe informacje", webDriver);
+            (new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.name("customerReference")))).sendKeys(values[0]);
+        }
+
         if (values.length < 8)
             return;
 
@@ -47,26 +57,44 @@ public class RecipientP2H extends RecipientForm {
     }
 
     protected void enterZipCode(String zipCode) {
-        zipCodeInput.sendKeys(zipCode);
+        PageAction.waitUntilClickableAndSendKeys(zipCodeInput, zipCode, webDriver);
+    }
+
+    protected String getZipCode() {
+        return zipCodeInput.getAttribute("value");
     }
 
     protected void enterTown(String town) {
-        PageAction.waitUntilClickable(townInput, webDriver);
-        townInput.sendKeys(town);
+        PageAction.waitUntilClickableAndSendKeys(townInput, town, webDriver);
         townInput.sendKeys(Keys.ENTER);
     }
 
+    protected String getTown() {
+        return townInput.getAttribute("value");
+    }
+
     protected void enterStreet(String street) {
-        PageAction.waitUntilClickable(streetInput, webDriver);
-        streetInput.sendKeys(street);
+        PageAction.waitUntilClickableAndSendKeys(streetInput, street, webDriver);
         streetInput.sendKeys(Keys.ENTER);
     }
 
+    protected String getStreet() {
+        return streetInput.getAttribute("value");
+    }
+
     protected void enterBuildingNumber(String number) {
-        buildingNumberInput.sendKeys(number);
+        PageAction.waitUntilClickableAndSendKeys(buildingNumberInput, number, webDriver);
+    }
+
+    protected String getBuildingNumber() {
+        return buildingNumberInput.getAttribute("value");
     }
 
     protected void enterFlatNumber(String number) {
-        flatNumberInput.sendKeys(number);
+        PageAction.waitUntilClickableAndSendKeys(flatNumberInput, number, webDriver);
+    }
+
+    protected String getFlatNumber() {
+        return flatNumberInput.getAttribute("value");
     }
 }
