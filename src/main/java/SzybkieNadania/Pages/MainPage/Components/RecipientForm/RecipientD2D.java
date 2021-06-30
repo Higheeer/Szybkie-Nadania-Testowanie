@@ -40,7 +40,7 @@ public class RecipientD2D extends RecipientForm {
     public void fill(String... values) {
         if (values.length == 1) {
             PageAction.checkCheckBox("Chcę podać dodatkowe informacje", webDriver);
-            (new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.name("customerReference")))).sendKeys(values[0]);
+            enterExtraComment(values[0]);
         }
 
         if (values.length < 8)
@@ -60,17 +60,9 @@ public class RecipientD2D extends RecipientForm {
         PageAction.waitUntilClickableAndSendKeys(zipCodeInput, zipCode, webDriver);
     }
 
-    protected String getZipCode() {
-        return zipCodeInput.getAttribute("value");
-    }
-
     protected void enterTown(String town) {
         PageAction.waitUntilClickableAndSendKeys(townInput, town, webDriver);
         townInput.sendKeys(Keys.ENTER);
-    }
-
-    protected String getTown() {
-        return townInput.getAttribute("value");
     }
 
     protected void enterStreet(String street) {
@@ -78,23 +70,83 @@ public class RecipientD2D extends RecipientForm {
         streetInput.sendKeys(Keys.ENTER);
     }
 
-    protected String getStreet() {
-        return streetInput.getAttribute("value");
-    }
-
     protected void enterBuildingNumber(String number) {
         PageAction.waitUntilClickableAndSendKeys(buildingNumberInput, number, webDriver);
-    }
-
-    protected String getBuildingNumber() {
-        return buildingNumberInput.getAttribute("value");
     }
 
     protected void enterFlatNumber(String number) {
         PageAction.waitUntilClickableAndSendKeys(flatNumberInput, number, webDriver);
     }
 
+    protected void enterExtraComment(String comment) {
+        (new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.name("customerReference")))).sendKeys(comment);
+    }
+
+    protected String getZipCode() {
+        return zipCodeInput.getAttribute("value");
+    }
+
+    protected String getTown() {
+        return townInput.getAttribute("value");
+    }
+
+    protected String getStreet() {
+        return streetInput.getAttribute("value");
+    }
+
+    protected String getBuildingNumber() {
+        return buildingNumberInput.getAttribute("value");
+    }
+
     protected String getFlatNumber() {
         return flatNumberInput.getAttribute("value");
+    }
+
+    protected boolean getZipCodeError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-targetAddress.zipCode']/following-sibling::small")).isDisplayed();
+    }
+
+    protected boolean getTownError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-targetAddress.town']/following-sibling::small")).isDisplayed();
+    }
+
+    protected boolean getStreetError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-targetAddress.street']/following-sibling::small")).isDisplayed();
+    }
+
+    protected boolean getBuildingNumberError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-targetAddress.buildingNo']/following-sibling::small")).isDisplayed();
+    }
+
+    protected boolean getFlatNumberError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-targetAddress.flatNo']/following-sibling::small")).isDisplayed();
+    }
+
+    protected boolean getExtraCommentError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-customerReference']/following-sibling::small")).isDisplayed();
+    }
+
+    protected void clearZipCode() {
+        zipCodeInput.clear();
+    }
+
+    protected void clearTown() {
+        townInput.clear();
+    }
+
+    protected void clearStreet() {
+        streetInput.clear();
+    }
+
+    protected void clearBuildingNumber() {
+        buildingNumberInput.clear();
+    }
+
+    protected void clearFlatNumber() {
+        flatNumberInput.clear();
+    }
+
+    protected void clearExtraComment() {
+        (new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.name("customerReference")))).clear();
     }
 }
