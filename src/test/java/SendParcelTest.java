@@ -9,6 +9,7 @@ import SzybkieNadania.Utils.PageAction;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -30,8 +31,12 @@ public class SendParcelTest {
     void setup() {
         webDriver = new ChromeDriver();
         webDriver.manage().window().maximize();
-        webDriver.get("https://test-oneclick-pl.easypack24.net/SzybkieNadania/");
         webDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
+        try {
+            webDriver.get("https://test-oneclick-pl.easypack24.net/SzybkieNadania/");
+        } catch (TimeoutException e) {
+            webDriver.navigate().refresh();
+        }
         PageAction.closeCookies(webDriver);
     }
 
@@ -43,11 +48,11 @@ public class SendParcelTest {
 
     @Nested
     @DisplayName("Test cases for sending P2P parcel")
-    class SendAPMParcel {
+    class APM {
         @BeforeEach
         void setup() {
             mainPage = new MainPage(webDriver);
-            mainPage.chooseDeliveryType(DeliveryMethod.Type.P2P);
+            mainPage.chooseDeliveryType(DeliveryMethod.Type.APM);
             mainPage.fillRecipientForm("Nadine Wilkerson", "in@enimCurabitur.edu", "957399532", "POP-ZYA1");
             mainPage.fillSenderForm("Quin Chan", "arcu.imperdiet.ullamcorper@pellentesquemassalobortis.edu", "751614425");
         }
@@ -63,7 +68,7 @@ public class SendParcelTest {
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
             PageAction.closeMiddleCookies(webDriver);
 
-            assertTrue((new SummaryPage(webDriver)).isPaid());
+            assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
 
         @ParameterizedTest
@@ -78,7 +83,7 @@ public class SendParcelTest {
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
             PageAction.closeMiddleCookies(webDriver);
 
-            assertTrue((new SummaryPage(webDriver)).isPaid());
+            assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
 
         @ParameterizedTest
@@ -93,7 +98,7 @@ public class SendParcelTest {
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
             PageAction.closeMiddleCookies(webDriver);
 
-            assertTrue((new SummaryPage(webDriver)).isPaid());
+            assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
 
         @ParameterizedTest
@@ -108,18 +113,17 @@ public class SendParcelTest {
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
             PageAction.closeMiddleCookies(webDriver);
 
-            assertTrue((new SummaryPage(webDriver)).isPaid());
+            assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
-
     }
 
     @Nested
     @DisplayName("Test cases for sending P2H parcel")
-    class SendD2DParcel {
+    class D2D {
         @BeforeEach
         void setup() {
             mainPage = new MainPage(webDriver);
-            mainPage.chooseDeliveryType(DeliveryMethod.Type.P2H);
+            mainPage.chooseDeliveryType(DeliveryMethod.Type.D2D);
             mainPage.fillRecipientForm("Nadine Wilkerson", "in@enimCurabitur.edu", "957399532", "31-513", "Kraków", "Olszańska", "25", "31");
             mainPage.fillSenderForm("Quin Chan", "arcu.imperdiet.ullamcorper@pellentesquemassalobortis.edu", "751614425");
         }
@@ -135,7 +139,7 @@ public class SendParcelTest {
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
             PageAction.closeMiddleCookies(webDriver);
 
-            assertTrue((new SummaryPage(webDriver)).isPaid());
+            assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
 
         @ParameterizedTest
@@ -150,7 +154,7 @@ public class SendParcelTest {
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
             PageAction.closeMiddleCookies(webDriver);
 
-            assertTrue((new SummaryPage(webDriver)).isPaid());
+            assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
 
         @ParameterizedTest
@@ -165,7 +169,7 @@ public class SendParcelTest {
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
             PageAction.closeMiddleCookies(webDriver);
 
-            assertTrue((new SummaryPage(webDriver)).isPaid());
+            assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
 
         @ParameterizedTest
@@ -180,7 +184,7 @@ public class SendParcelTest {
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
             PageAction.closeMiddleCookies(webDriver);
 
-            assertTrue((new SummaryPage(webDriver)).isPaid());
+            assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
 
         @ParameterizedTest
@@ -195,7 +199,7 @@ public class SendParcelTest {
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
             PageAction.closeMiddleCookies(webDriver);
 
-            assertTrue((new SummaryPage(webDriver)).isPaid());
+            assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
 
         @ParameterizedTest
@@ -211,7 +215,7 @@ public class SendParcelTest {
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
             PageAction.closeMiddleCookies(webDriver);
 
-            assertTrue((new SummaryPage(webDriver)).isPaid());
+            assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
 
         @ParameterizedTest
@@ -227,7 +231,7 @@ public class SendParcelTest {
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
             PageAction.closeMiddleCookies(webDriver);
 
-            assertTrue((new SummaryPage(webDriver)).isPaid());
+            assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
 
         @ParameterizedTest
@@ -243,7 +247,7 @@ public class SendParcelTest {
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
             PageAction.closeMiddleCookies(webDriver);
 
-            assertTrue((new SummaryPage(webDriver)).isPaid());
+            assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
 
 
