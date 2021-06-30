@@ -19,7 +19,7 @@ public class ForeignCompanyInvoice implements Invoice {
     @FindBy(name = "invoice.foreignCompany.companyName")
     private WebElement companyNameInput;
 
-    @FindBy(css = "#parcelForm > div > div.col-md-6.col-lg-7.col-xl-8 > app-dynamic-form > form > app-section:nth-child(22) > div > app-input > div > div > div > app-complex-select > ng-select > div > div > div.ng-input > input[type=text]")
+    @FindBy(css = "ng-select.ng-invalid > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)")
     private WebElement countryInput;
 
     @FindBy(name = "invoice.foreignCompany.zipCode")
