@@ -12,13 +12,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class RecipientP2P extends RecipientForm {
+public class RecipientAPM extends RecipientForm {
     @FindBy(css = "#parcelForm > div > div.col-md-6.col-lg-7.col-xl-8 > app-dynamic-form > form > app-section.bottom.col-12.pb-4.sections-combined > div > app-input > div.flex-column.flex-1 > div > div > app-points-select > ng-select > div > div > div.ng-input > input[type=text]")
     private WebElement parcelLockerInput;
     @FindBy(id = "error-boxMachineName")
     private WebElement parcelLockerError;
 
-    public RecipientP2P(WebDriver webDriver) {
+    public RecipientAPM(WebDriver webDriver) {
         super(webDriver);
         PageFactory.initElements(this.webDriver, this);
     }
