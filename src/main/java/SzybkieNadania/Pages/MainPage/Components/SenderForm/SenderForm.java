@@ -29,18 +29,6 @@ public class SenderForm {
         PageFactory.initElements(this.webDriver, this);
     }
 
-    protected void enterName(String name) {
-        nameInput.sendKeys(name);
-    }
-
-    protected void enterEmail(String email) {
-        emailInput.sendKeys(email);
-    }
-
-    protected void enterPhoneNumber(String phoneNumber) {
-        phoneNumberInput.sendKeys(phoneNumber);
-    }
-
     public void fill(String name, String email, String phoneNumber) {
         enterName(name);
         enterEmail(email);
@@ -71,6 +59,18 @@ public class SenderForm {
 
     public void fillInvoice(String... values) {
         invoice.fill(values);
+    }
+
+    protected void enterName(String name) {
+        nameInput.sendKeys(name);
+    }
+
+    protected void enterEmail(String email) {
+        emailInput.sendKeys(email);
+    }
+
+    protected void enterPhoneNumber(String phoneNumber) {
+        phoneNumberInput.sendKeys(phoneNumber);
     }
 
     public enum InvoiceType {
