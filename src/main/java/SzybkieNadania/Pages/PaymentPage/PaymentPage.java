@@ -38,24 +38,23 @@ public class PaymentPage {
     public PaymentPage finish(Payment status) {
         (new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".finish-button")))).click();
 
-        switch (status){
-            case APPROVED:{
+        switch (status) {
+            case APPROVED: {
                 (new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[value ='1']")))).click();
                 return this;
             }
-            case DECLINED:{
+            case DECLINED: {
                 (new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[value ='2'")))).click();
                 return this;
             }
 
-            case PENDING:{
+            case PENDING: {
                 (new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[value ='3'")))).click();
                 return this;
             }
         }
         return this;
     }
-
 
 
 }
