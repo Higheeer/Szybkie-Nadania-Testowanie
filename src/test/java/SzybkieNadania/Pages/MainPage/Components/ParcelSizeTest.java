@@ -20,7 +20,7 @@ class ParcelSizeTest extends Base {
     @Test
     @Tag("P2P")
     void shouldChooseSmallSizeWhenP2PIsSelected() {
-        deliveryMethod.choose(DeliveryMethod.Type.P2P);
+        deliveryMethod.choose(DeliveryMethod.Type.APM);
         parcelSize.choose(ParcelSize.Size.SMALL);
         assertTrue(parcelSize.isSelectedSmallParcel() && !parcelSize.isSelectedMediumParcel() && !parcelSize.isSelectedLargeParcel());
     }
@@ -28,7 +28,7 @@ class ParcelSizeTest extends Base {
     @Test
     @Tag("P2P")
     void shouldChooseMediumSizeWhenP2PIsSelected() {
-        deliveryMethod.choose(DeliveryMethod.Type.P2P);
+        deliveryMethod.choose(DeliveryMethod.Type.APM);
         parcelSize.choose(ParcelSize.Size.MEDIUM);
         assertTrue(parcelSize.isSelectedMediumParcel() && !parcelSize.isSelectedSmallParcel() && !parcelSize.isSelectedLargeParcel());
     }
@@ -36,7 +36,7 @@ class ParcelSizeTest extends Base {
     @Test
     @Tag("P2P")
     void shouldChooseLargeSizeWhenP2PIsSelected() {
-        deliveryMethod.choose(DeliveryMethod.Type.P2P);
+        deliveryMethod.choose(DeliveryMethod.Type.APM);
         parcelSize.choose(ParcelSize.Size.LARGE);
         assertTrue(parcelSize.isSelectedLargeParcel() && !parcelSize.isSelectedSmallParcel() && !parcelSize.isSelectedMediumParcel());
     }
@@ -44,7 +44,7 @@ class ParcelSizeTest extends Base {
     @Test
     @Tag("P2H")
     void shouldChooseSmallSizeWhenP2HIsSelected() {
-        deliveryMethod.choose(DeliveryMethod.Type.P2H);
+        deliveryMethod.choose(DeliveryMethod.Type.D2D);
         parcelSize.choose(ParcelSize.Size.SMALL);
         assertTrue(parcelSize.isSelectedSmallParcel() && !parcelSize.isSelectedMediumParcel() && !parcelSize.isSelectedLargeParcel());
     }
@@ -52,7 +52,7 @@ class ParcelSizeTest extends Base {
     @Test
     @Tag("P2H")
     void shouldChooseMediumSizeWhenP2HIsSelected() {
-        deliveryMethod.choose(DeliveryMethod.Type.P2H);
+        deliveryMethod.choose(DeliveryMethod.Type.D2D);
         parcelSize.choose(ParcelSize.Size.MEDIUM);
         assertTrue(parcelSize.isSelectedMediumParcel() && !parcelSize.isSelectedSmallParcel() && !parcelSize.isSelectedLargeParcel());
     }
@@ -60,7 +60,7 @@ class ParcelSizeTest extends Base {
     @Test
     @Tag("P2H")
     void shouldChooseLargeSizeWhenP2HIsSelected() {
-        deliveryMethod.choose(DeliveryMethod.Type.P2H);
+        deliveryMethod.choose(DeliveryMethod.Type.D2D);
         parcelSize.choose(ParcelSize.Size.LARGE);
         assertTrue(parcelSize.isSelectedLargeParcel() && !parcelSize.isSelectedSmallParcel() && !parcelSize.isSelectedMediumParcel());
     }

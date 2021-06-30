@@ -10,14 +10,14 @@ class DeliveryMethodTest extends Base {
     @Test
     void shouldChooseP2PMethod() {
         DeliveryMethod deliveryMethod = new DeliveryMethod(webDriver);
-        deliveryMethod.choose(DeliveryMethod.Type.P2P);
+        deliveryMethod.choose(DeliveryMethod.Type.APM);
         assertTrue(deliveryMethod.isSelectedP2P() && !deliveryMethod.isSelectedP2H());
     }
 
     @Test
     void shouldChooseP2HMethod() {
         DeliveryMethod deliveryMethod = new DeliveryMethod(webDriver);
-        deliveryMethod.choose(DeliveryMethod.Type.P2H);
+        deliveryMethod.choose(DeliveryMethod.Type.D2D);
         assertTrue(deliveryMethod.isSelectedP2H() && !deliveryMethod.isSelectedP2P());
     }
 
