@@ -14,8 +14,10 @@ import org.junit.jupiter.params.provider.EnumSource;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -27,6 +29,8 @@ public class SendParcelTest {
     @BeforeAll
     static void staticSetup() {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.silentOutput", "true");
+        java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.OFF);
     }
 
     @BeforeEach
