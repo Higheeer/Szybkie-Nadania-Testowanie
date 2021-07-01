@@ -13,6 +13,7 @@ import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.interactions.Actions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,7 +38,7 @@ public class RecipientFormTest extends Base {
             recipientAPM.clearName();
             recipientAPM.enterName(name);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertTrue(recipientAPM.getNameError());
         }
@@ -48,7 +49,7 @@ public class RecipientFormTest extends Base {
             recipientAPM.clearName();
             recipientAPM.enterName(name);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertThrows(NoSuchElementException.class, () -> recipientAPM.getNameError());
         }
@@ -60,7 +61,7 @@ public class RecipientFormTest extends Base {
             recipientAPM.clearEmail();
             recipientAPM.enterEmail(email);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertTrue(recipientAPM.getEmailError());
         }
@@ -71,18 +72,19 @@ public class RecipientFormTest extends Base {
             recipientAPM.clearEmail();
             recipientAPM.enterEmail(email);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertThrows(NoSuchElementException.class, () -> recipientAPM.getEmailError());
         }
 
         @ParameterizedTest
+        @EmptySource
         @CsvFileSource(resources = "/PhoneNumber/invalidPhoneNumberData.csv")
         void shouldDisplayErrorWhenInvalidPhoneNumberGiven(String phoneNumber) {
             recipientAPM.clearPhoneNumber();
             recipientAPM.enterPhoneNumber(phoneNumber);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertTrue(recipientAPM.getPhoneNumberError());
         }
@@ -93,15 +95,18 @@ public class RecipientFormTest extends Base {
             recipientAPM.clearPhoneNumber();
             recipientAPM.enterPhoneNumber(phoneNumber);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertThrows(NoSuchElementException.class, () -> recipientAPM.getPhoneNumberError());
         }
 
         @ParameterizedTest
+        @EmptySource
         @ValueSource(strings = {"dawdawda"})
         void shouldDisplayErrorWhenInvalidParcelLockerGiven(String parcelLocker) {
             recipientAPM.clearParcelLocker();
+
+            new Actions(webDriver).click().perform();
 
             assertThrows(TimeoutException.class, () ->
                     recipientAPM.enterParcelLocker(parcelLocker));
@@ -113,7 +118,7 @@ public class RecipientFormTest extends Base {
             recipientAPM.clearParcelLocker();
             recipientAPM.enterParcelLocker(parcelLocker);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertThrows(NoSuchElementException.class, () -> recipientAPM.getParcelLockerError());
         }
@@ -138,7 +143,7 @@ public class RecipientFormTest extends Base {
             recipientD2D.clearName();
             recipientD2D.enterName(name);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertTrue(recipientD2D.getNameError());
         }
@@ -149,7 +154,7 @@ public class RecipientFormTest extends Base {
             recipientD2D.clearName();
             recipientD2D.enterName(name);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertThrows(NoSuchElementException.class, () -> recipientD2D.getNameError());
         }
@@ -161,7 +166,7 @@ public class RecipientFormTest extends Base {
             recipientD2D.clearEmail();
             recipientD2D.enterEmail(email);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertTrue(recipientD2D.getEmailError());
         }
@@ -172,18 +177,19 @@ public class RecipientFormTest extends Base {
             recipientD2D.clearEmail();
             recipientD2D.enterEmail(email);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertThrows(NoSuchElementException.class, () -> recipientD2D.getEmailError());
         }
 
         @ParameterizedTest
+        @EmptySource
         @CsvFileSource(resources = "/PhoneNumber/invalidPhoneNumberData.csv")
         void shouldDisplayErrorWhenInvalidPhoneNumberGiven(String phoneNumber) {
             recipientD2D.clearPhoneNumber();
             recipientD2D.enterPhoneNumber(phoneNumber);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertAll(() -> {
                 assertTrue(recipientD2D.getPhoneNumberError());
@@ -197,7 +203,7 @@ public class RecipientFormTest extends Base {
             recipientD2D.clearPhoneNumber();
             recipientD2D.enterPhoneNumber(phoneNumber);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertThrows(NoSuchElementException.class, () -> recipientD2D.getPhoneNumberError());
         }
@@ -209,7 +215,7 @@ public class RecipientFormTest extends Base {
             recipientD2D.clearZipCode();
             recipientD2D.enterZipCode(zipCode);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertAll(() -> {
                 assertTrue(recipientD2D.getZipCodeError());
@@ -223,20 +229,23 @@ public class RecipientFormTest extends Base {
             recipientD2D.clearZipCode();
             recipientD2D.enterZipCode(zipCode);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertThrows(NoSuchElementException.class, () -> recipientD2D.getZipCodeError());
         }
 
 
         @ParameterizedTest
+        @EmptySource
         @ValueSource(strings = {"dawdawdaddawdawdaddawdawdaddawdawdaddawdawdaddawddd", "?!?!?!?!?!?@#@#3$%$@"})
         void shouldDisplayErrorWhenInvalidTownGiven(String town) {
+            recipientD2D.clearZipCode();
             recipientD2D.enterZipCode("96-320");
 
+            recipientD2D.clearTown();
             recipientD2D.enterTown(town);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertTrue(recipientD2D.getTownError());
         }
@@ -244,24 +253,30 @@ public class RecipientFormTest extends Base {
         @ParameterizedTest
         @ValueSource(strings = {"Mszczonów", "Adamowice"})
         void shouldTownBeCorrectWhenCorrectTownGiven(String town) {
+            recipientD2D.clearZipCode();
             recipientD2D.enterZipCode("96-320");
 
+            recipientD2D.clearTown();
             recipientD2D.enterTown(town);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertEquals(town, recipientD2D.getTown());
         }
 
         @ParameterizedTest
+        @EmptySource
         @ValueSource(strings = {"dawdawdaddawdawdaddawdawdaddawdawdaddawdawdaddawddd", "!@!#@$%&*&*#$&*$#(@)"})
         void shouldDisplayErrorWhenInvalidStreetGiven(String street) {
+            recipientD2D.clearZipCode();
             recipientD2D.enterZipCode("96-320");
+            recipientD2D.clearTown();
             recipientD2D.enterTown("Mszczonów");
 
+            recipientD2D.clearStreet();
             recipientD2D.enterStreet(street);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertTrue(recipientD2D.getStreetError());
         }
@@ -269,23 +284,27 @@ public class RecipientFormTest extends Base {
         @ParameterizedTest
         @ValueSource(strings = {"3-Maja", "Andersa", "Bagno"})
         void shouldStreetBeCorrectWhenCorrectStreetGiven(String street) {
+            recipientD2D.clearZipCode();
             recipientD2D.enterZipCode("96-320");
+            recipientD2D.clearTown();
             recipientD2D.enterTown("Mszczonów");
 
+            recipientD2D.clearStreet();
             recipientD2D.enterStreet(street);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertEquals(street, recipientD2D.getStreet());
         }
 
         @ParameterizedTest
+        @EmptySource
         @ValueSource(strings = {"12312312311", " "})
         void shouldDisplayErrorWhenInvalidBuildingNumberGiven(String buildingNumber) {
             recipientD2D.clearBuildingNumber();
             recipientD2D.enterBuildingNumber(buildingNumber);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertTrue(recipientD2D.getBuildingNumberError());
         }
@@ -296,18 +315,19 @@ public class RecipientFormTest extends Base {
             recipientD2D.clearBuildingNumber();
             recipientD2D.enterBuildingNumber(buildingNumber);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertThrows(NoSuchElementException.class, () -> recipientD2D.getBuildingNumberError());
         }
 
         @ParameterizedTest
+        @EmptySource
         @ValueSource(strings = {"12312312311"})
         void shouldDisplayErrorWhenInvalidFlatNumberGiven(String flatNumber) {
             recipientD2D.clearFlatNumber();
             recipientD2D.enterFlatNumber(flatNumber);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertTrue(recipientD2D.getFlatNumberError());
         }
@@ -318,18 +338,18 @@ public class RecipientFormTest extends Base {
             recipientD2D.clearFlatNumber();
             recipientD2D.enterFlatNumber(flatNumber);
 
-            (new MainPage(webDriver)).submit();
 
             assertThrows(NoSuchElementException.class, () -> recipientD2D.getFlatNumberError());
         }
 
         @ParameterizedTest
+        @EmptySource
         @ValueSource(strings = {"awdawdawdawdawdwadwadawdawdawdwaddawd", " "})
         void shouldDisplayErrorWhenInvalidExtraCommentGiven(String extraComment) {
             recipientD2D.clearExtraComment();
             recipientD2D.enterExtraComment(extraComment);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertTrue(recipientD2D.getExtraCommentError());
         }
@@ -340,7 +360,7 @@ public class RecipientFormTest extends Base {
             recipientD2D.clearExtraComment();
             recipientD2D.enterExtraComment(extraComment);
 
-            (new MainPage(webDriver)).submit();
+            new Actions(webDriver).click().perform();
 
             assertThrows(NoSuchElementException.class, () -> recipientD2D.getExtraCommentError());
         }
