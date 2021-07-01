@@ -23,10 +23,10 @@ public class CompanyInvoice implements Invoice {
     @FindBy(name = "invoice.company.zipCode")
     private WebElement zipCodeInput;
 
-    @FindBy(css = "app-selectpicker:nth-child(1) > ng-select:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)")
+    @FindBy(xpath = "//*[@name='invoice.company.town']/div/div/div[2]/input")
     private WebElement townInput;
 
-    @FindBy(css = "app-selectpicker:nth-child(1) > ng-select:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)")
+    @FindBy(xpath = "//*[@name='invoice.company.street']/div/div/div[2]/input")
     private WebElement streetInput;
 
     @FindBy(name = "invoice.company.buildingNo")
