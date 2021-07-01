@@ -1,4 +1,4 @@
-package SzybkieNadania.sendParcel;
+package SzybkieNadania.SendParcel;
 
 import SzybkieNadania.Pages.MainPage.Components.DeliveryMethod;
 import SzybkieNadania.Pages.MainPage.Components.ParcelSize;
