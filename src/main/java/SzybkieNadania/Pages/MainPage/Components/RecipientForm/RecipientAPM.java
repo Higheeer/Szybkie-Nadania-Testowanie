@@ -13,14 +13,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class RecipientAPM extends RecipientForm {
-    @FindBy(css = "#parcelForm > div > div.col-md-6.col-lg-7.col-xl-8 > app-dynamic-form > form > app-section.bottom.col-12.pb-4.sections-combined > div > app-input > div.flex-column.flex-1 > div > div > app-points-select > ng-select > div > div > div.ng-input > input[type=text]")
+    @FindBy(css = "app-points-select > ng-select > div > div > div.ng-input > input[type=text]")
     private WebElement parcelLockerInput;
     @FindBy(id = "error-boxMachineName")
     private WebElement parcelLockerError;
 
     public RecipientAPM(WebDriver webDriver) {
         super(webDriver);
-        PageFactory.initElements(this.webDriver, this);
+        PageFactory.initElements(webDriver, this);
     }
 
     /**
@@ -39,7 +39,7 @@ public class RecipientAPM extends RecipientForm {
 
     protected void enterParcelLocker(String parcelLocker) {
         PageAction.waitUntilClickableAndSendKeys(parcelLockerInput, parcelLocker.toUpperCase(), webDriver);
-        new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(By.id(parcelLocker)));
+        new WebDriverWait(webDriver, Duration.ofSeconds(2)).until(ExpectedConditions.visibilityOfElementLocated(By.id(parcelLocker)));
         parcelLockerInput.sendKeys(Keys.ENTER);
     }
 
