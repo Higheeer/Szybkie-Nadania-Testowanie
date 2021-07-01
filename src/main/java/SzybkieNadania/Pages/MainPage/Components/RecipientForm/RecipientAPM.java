@@ -15,8 +15,6 @@ import java.time.Duration;
 public class RecipientAPM extends RecipientForm {
     @FindBy(css = "app-points-select > ng-select > div > div > div.ng-input > input[type=text]")
     private WebElement parcelLockerInput;
-    @FindBy(id = "error-boxMachineName")
-    private WebElement parcelLockerError;
 
     public RecipientAPM(WebDriver webDriver) {
         super(webDriver);
@@ -43,12 +41,12 @@ public class RecipientAPM extends RecipientForm {
         parcelLockerInput.sendKeys(Keys.ENTER);
     }
 
-    protected String getParcelLocker() {
+    protected String getParcelLockerValue() {
         return parcelLockerInput.getAttribute("value");
     }
 
     protected boolean getParcelLockerError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-boxMachineName']/following-sibling::small")).isDisplayed();
+        return parcelLockerInput.findElement(By.xpath("//*[@id='error-boxMachineName']/following-sibling::small")).isDisplayed();
     }
 
     protected void clearParcelLocker() {
