@@ -20,10 +20,10 @@ public class IndividualInvoice implements Invoice {
     @FindBy(name = "invoice.individual.zipCode")
     private WebElement zipCodeInput;
 
-    @FindBy(css = "app-selectpicker:nth-child(1) > ng-select:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)")
+    @FindBy(xpath = "//*[@name='invoice.individual.town']/div/div/div[2]/input")
     private WebElement townInput;
 
-    @FindBy(css = "app-selectpicker:nth-child(1) > ng-select:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)")
+    @FindBy(xpath = "//*[@name='invoice.individual.street']/div/div/div[2]/input")
     private WebElement streetInput;
 
     @FindBy(name = "invoice.individual.buildingNo")
@@ -55,6 +55,13 @@ public class IndividualInvoice implements Invoice {
         enterStreet(values[4]);
         enterBuildingNumber(values[5]);
         enterFlatNumber(values[6]);
+    }
+
+    public boolean copySenderData() {
+        copySenderDataButton.click();
+        return nameInput.getAttribute("value").equals(webDriver.findElement(By.name("senderAddress.name")).getAttribute("value")) &&
+                emailInput.getAttribute("value").equals(webDriver.findElement(By.name("senderAddress.email")).getAttribute("value"));
+
     }
 
     protected void enterName(String name) {
@@ -89,10 +96,87 @@ public class IndividualInvoice implements Invoice {
         flatNumberInput.sendKeys(number);
     }
 
-    public boolean copySenderData() {
-        copySenderDataButton.click();
-        return nameInput.getAttribute("value").equals(webDriver.findElement(By.name("senderAddress.name")).getAttribute("value")) &&
-                emailInput.getAttribute("value").equals(webDriver.findElement(By.name("senderAddress.email")).getAttribute("value"));
+    protected String getName() {
+        return nameInput.getAttribute("value");
+    }
 
+    protected String getEmail() {
+        return emailInput.getAttribute("value");
+    }
+
+    protected String getZipCode() {
+        return zipCodeInput.getAttribute("value");
+    }
+
+    protected String getTown() {
+        return webDriver.findElement(By.xpath("//*[@name='invoice.individual.town']/div/div/div[2]/span[2]")).getText();
+    }
+
+    protected String getStreet() {
+        return webDriver.findElement(By.xpath("//*[@name='invoice.individual.street']/div/div/div[2]/span[2]")).getText();
+    }
+
+    protected String getBuildingNumber() {
+        return buildingNumberInput.getAttribute("value");
+    }
+
+    protected String getFlatNumber() {
+        return flatNumberInput.getAttribute("value");
+    }
+
+    protected boolean getNameError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-invoice.individual.companyName']/following-sibling::small")).isDisplayed();
+    }
+    
+    protected boolean getEmailError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-invoice.individual.email']/following-sibling::small")).isDisplayed();
+    }
+    
+    protected boolean getZipCodeError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-invoice.individual.zipCode']/following-sibling::small")).isDisplayed();
+    }
+
+    protected boolean getTownError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-invoice.individual.town']/following-sibling::small")).isDisplayed();
+    }
+
+    protected boolean getStreetError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-invoice.individual.street']/following-sibling::small")).isDisplayed();
+    }
+
+    protected boolean getBuildingNumberError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-invoice.individual.buildingNo']/following-sibling::small")).isDisplayed();
+    }
+
+    protected boolean getFlatNumberError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-invoice.individual.flatNo']/following-sibling::small")).isDisplayed();
+    }
+
+    protected void clearName() {
+        PageAction.waitUntilClickable(nameInput, webDriver).clear();
+    }
+
+    protected void clearEmail() {
+        PageAction.waitUntilClickable(emailInput, webDriver).clear();
+    }
+
+    protected void clearZipCode() {
+        PageAction.waitUntilClickable(zipCodeInput, webDriver).clear();
+    }
+
+    protected void clearTown() {
+        PageAction.waitUntilClickable(townInput, webDriver).clear();
+    }
+
+    protected void clearStreet() {
+        PageAction.waitUntilClickable(streetInput, webDriver).clear();
+    }
+
+    protected void clearBuildingNumber() {
+        PageAction.waitUntilClickable(buildingNumberInput, webDriver).clear();
+    }
+
+    protected void clearFlatNumber() {
+        PageAction.waitUntilClickable(flatNumberInput, webDriver).clear();
     }
 }
