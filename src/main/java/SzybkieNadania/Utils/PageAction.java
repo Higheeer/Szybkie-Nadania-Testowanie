@@ -45,8 +45,9 @@ public class PageAction {
         return false;
     }
 
-    public static void waitUntilClickable(WebElement webElement, WebDriver webDriver) {
+    public static WebElement waitUntilClickable(WebElement webElement, WebDriver webDriver) {
         (new WebDriverWait(webDriver, Duration.ofSeconds(5))).until(ExpectedConditions.elementToBeClickable(webElement));
+        return webElement;
     }
 
     public static void waitUntilClickableAndClick(WebElement webElement, WebDriver webDriver) {
