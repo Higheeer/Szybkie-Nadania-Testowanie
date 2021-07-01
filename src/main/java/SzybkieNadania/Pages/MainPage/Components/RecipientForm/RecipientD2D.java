@@ -127,23 +127,23 @@ public class RecipientD2D extends RecipientForm {
     }
 
     protected void clearZipCode() {
-        zipCodeInput.clear();
+        PageAction.waitUntilClickable(zipCodeInput,webDriver).clear();
     }
 
     protected void clearTown() {
-        townInput.clear();
+        PageAction.waitUntilClickable(townInput,webDriver).clear();
     }
 
     protected void clearStreet() {
-        streetInput.clear();
+        PageAction.waitUntilClickable(streetInput,webDriver).clear();
     }
 
     protected void clearBuildingNumber() {
-        buildingNumberInput.clear();
+        PageAction.waitUntilClickable(buildingNumberInput,webDriver).clear();
     }
 
     protected void clearFlatNumber() {
-        flatNumberInput.clear();
+        PageAction.waitUntilClickable(flatNumberInput,webDriver).clear();
     }
 
     protected void clearExtraComment() {

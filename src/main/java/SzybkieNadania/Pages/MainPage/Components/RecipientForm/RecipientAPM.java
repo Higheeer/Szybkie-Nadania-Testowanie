@@ -52,6 +52,6 @@ public class RecipientAPM extends RecipientForm {
     }
 
     protected void clearParcelLocker() {
-        parcelLockerInput.clear();
+        PageAction.waitUntilClickable(parcelLockerInput,webDriver).clear();
     }
 }
