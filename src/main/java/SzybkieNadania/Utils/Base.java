@@ -5,8 +5,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
+import java.util.logging.Level;
 
 public abstract class Base {
     public static WebDriver webDriver;
@@ -14,6 +16,8 @@ public abstract class Base {
     @BeforeAll
     public static void prepareTestEnvironment() {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.silentOutput", "true");
+        java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.OFF);
         webDriver = new ChromeDriver();
         webDriver.manage().window().maximize();
         webDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
