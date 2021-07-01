@@ -210,7 +210,7 @@ public class RecipientFormTest extends Base {
 
         @ParameterizedTest
         @EmptySource
-        @CsvFileSource(resources = "/Address/invalidAddressData.csv")
+        @CsvFileSource(resources = "/Address/invalidZipCodeData.csv")
         void shouldDisplayErrorWhenInvalidZipCodeGiven(String zipCode) {
             recipientD2D.clearZipCode();
             recipientD2D.enterZipCode(zipCode);
@@ -234,10 +234,9 @@ public class RecipientFormTest extends Base {
             assertThrows(NoSuchElementException.class, () -> recipientD2D.getZipCodeError());
         }
 
-
         @ParameterizedTest
         @EmptySource
-        @ValueSource(strings = {"dawdawdaddawdawdaddawdawdaddawdawdaddawdawdaddawddd", "?!?!?!?!?!?@#@#3$%$@"})
+        @CsvFileSource(resources = "/Address/invalidTownData.csv")
         void shouldDisplayErrorWhenInvalidTownGiven(String town) {
             recipientD2D.clearZipCode();
             recipientD2D.enterZipCode("96-320");
@@ -251,10 +250,10 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"Mszczonów", "Adamowice"})
-        void shouldTownBeCorrectWhenCorrectTownGiven(String town) {
+        @CsvFileSource(resources = "/Address/correctAddressData.csv")
+        void shouldTownBeCorrectWhenCorrectTownGiven(String zipCode, String town) {
             recipientD2D.clearZipCode();
-            recipientD2D.enterZipCode("96-320");
+            recipientD2D.enterZipCode(zipCode);
 
             recipientD2D.clearTown();
             recipientD2D.enterTown(town);
@@ -266,7 +265,7 @@ public class RecipientFormTest extends Base {
 
         @ParameterizedTest
         @EmptySource
-        @ValueSource(strings = {"dawdawdaddawdawdaddawdawdaddawdawdaddawdawdaddawddd", "!@!#@$%&*&*#$&*$#(@)"})
+        @CsvFileSource(resources = "/Address/invalidStreetData.csv")
         void shouldDisplayErrorWhenInvalidStreetGiven(String street) {
             recipientD2D.clearZipCode();
             recipientD2D.enterZipCode("96-320");
@@ -282,12 +281,12 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"3-Maja", "Andersa", "Bagno"})
-        void shouldStreetBeCorrectWhenCorrectStreetGiven(String street) {
+        @CsvFileSource(resources = "/Address/correctAddressData.csv")
+        void shouldStreetBeCorrectWhenCorrectStreetGiven(String zipCode,String town,String street) {
             recipientD2D.clearZipCode();
-            recipientD2D.enterZipCode("96-320");
+            recipientD2D.enterZipCode(zipCode);
             recipientD2D.clearTown();
-            recipientD2D.enterTown("Mszczonów");
+            recipientD2D.enterTown(town);
 
             recipientD2D.clearStreet();
             recipientD2D.enterStreet(street);
