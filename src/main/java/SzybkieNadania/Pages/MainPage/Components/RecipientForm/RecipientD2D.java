@@ -16,10 +16,10 @@ public class RecipientD2D extends RecipientForm {
     @FindBy(name = "targetAddress.zipCode")
     private WebElement zipCodeInput;
 
-    @FindBy(css = "#parcelForm > div > div.col-md-6.col-lg-7.col-xl-8 > app-dynamic-form > form > app-section:nth-child(8) > div > app-input > div > div > div > app-selectpicker > ng-select > div > div > div.ng-input > input[type=text]")
+    @FindBy(xpath = "//*[@name='targetAddress.town']/div/div/div[2]/input")
     private WebElement townInput;
 
-    @FindBy(css = "#parcelForm > div > div.col-md-6.col-lg-7.col-xl-8 > app-dynamic-form > form > app-section:nth-child(9) > div > app-input > div > div > div > app-selectpicker > ng-select > div > div > div.ng-input > input[type=text]")
+    @FindBy(xpath = "//*[@name='targetAddress.street']/div/div/div[2]/input")
     private WebElement streetInput;
 
     @FindBy(name = "targetAddress.buildingNo")
@@ -30,7 +30,7 @@ public class RecipientD2D extends RecipientForm {
 
     public RecipientD2D(WebDriver webDriver) {
         super(webDriver);
-        PageFactory.initElements(this.webDriver, this);
+        PageFactory.initElements(webDriver, this);
     }
 
     /**
@@ -87,11 +87,11 @@ public class RecipientD2D extends RecipientForm {
     }
 
     protected String getTown() {
-        return townInput.getAttribute("value");
+        return webDriver.findElement(By.xpath("//*[@name='targetAddress.town']/div/div/div[2]/span[2]")).getText();
     }
 
     protected String getStreet() {
-        return streetInput.getAttribute("value");
+        return webDriver.findElement(By.xpath("//*[@name='targetAddress.street']/div/div/div[2]/span[2]")).getText();
     }
 
     protected String getBuildingNumber() {
