@@ -5,6 +5,7 @@ import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.ForeignCompan
 import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.IndividualInvoice;
 import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.Invoice;
 import SzybkieNadania.Utils.PageAction;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -71,6 +72,30 @@ public class SenderForm {
 
     protected void enterPhoneNumber(String phoneNumber) {
         phoneNumberInput.sendKeys(phoneNumber);
+    }
+
+    protected boolean getNameError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-senderAddress.name']/following-sibling::small")).isDisplayed();
+    }
+
+    protected boolean getEmailError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-senderAddress.email']/following-sibling::small")).isDisplayed();
+    }
+
+    protected boolean getPhoneNumberError() {
+        return webDriver.findElement(By.xpath("//*[@id='error-senderAddress.phoneNum']/following-sibling::small")).isDisplayed();
+    }
+
+    protected void clearName() {
+        nameInput.clear();
+    }
+
+    protected void clearEmail() {
+        emailInput.clear();
+    }
+
+    protected void clearPhoneNumber() {
+        phoneNumberInput.clear();
     }
 
     public enum InvoiceType {
