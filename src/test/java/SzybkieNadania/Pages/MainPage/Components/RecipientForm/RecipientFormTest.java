@@ -102,18 +102,22 @@ public class RecipientFormTest extends Base {
 
         @ParameterizedTest
         @EmptySource
-        @ValueSource(strings = {"dawdawda"})
+        @CsvFileSource(resources = "/ParcelLocker/invalidParcelLockerData.csv")
         void shouldDisplayErrorWhenInvalidParcelLockerGiven(String parcelLocker) {
             recipientAPM.clearParcelLocker();
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(TimeoutException.class, () ->
-                    recipientAPM.enterParcelLocker(parcelLocker));
+            assertAll(() -> {
+                assertThrows(TimeoutException.class, () ->
+                        recipientAPM.enterParcelLocker(parcelLocker));
+                assertTrue(recipientAPM.getParcelLockerError());
+            });
+
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"POP-ZYA1"})
+        @CsvFileSource(resources = "/ParcelLocker/correctParcelLockerData.csv")
         void shouldParcelLockerBeCorrectWhenCorrectParcelLockerGiven(String parcelLocker) {
             recipientAPM.clearParcelLocker();
             recipientAPM.enterParcelLocker(parcelLocker);
@@ -282,7 +286,7 @@ public class RecipientFormTest extends Base {
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctAddressData.csv")
-        void shouldStreetBeCorrectWhenCorrectStreetGiven(String zipCode,String town,String street) {
+        void shouldStreetBeCorrectWhenCorrectStreetGiven(String zipCode, String town, String street) {
             recipientD2D.clearZipCode();
             recipientD2D.enterZipCode(zipCode);
             recipientD2D.clearTown();
@@ -298,7 +302,7 @@ public class RecipientFormTest extends Base {
 
         @ParameterizedTest
         @EmptySource
-        @ValueSource(strings = {"12312312311", " "})
+        @CsvFileSource(resources = "/Address/invalidNumberData.csv")
         void shouldDisplayErrorWhenInvalidBuildingNumberGiven(String buildingNumber) {
             recipientD2D.clearBuildingNumber();
             recipientD2D.enterBuildingNumber(buildingNumber);
@@ -309,7 +313,7 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"1231231231", "0"})
+        @CsvFileSource(resources = "/Address/correctNumberData.csv")
         void shouldBuildingNumberBeCorrectWhenCorrectBuildingNumberGiven(String buildingNumber) {
             recipientD2D.clearBuildingNumber();
             recipientD2D.enterBuildingNumber(buildingNumber);
@@ -320,8 +324,7 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @EmptySource
-        @ValueSource(strings = {"12312312311"})
+        @CsvFileSource(resources = "/Address/invalidNumberData.csv")
         void shouldDisplayErrorWhenInvalidFlatNumberGiven(String flatNumber) {
             recipientD2D.clearFlatNumber();
             recipientD2D.enterFlatNumber(flatNumber);
@@ -332,7 +335,7 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"1231231231", "0", " "})
+        @CsvFileSource(resources = "/Address/correctNumberData.csv")
         void shouldFlatNumberBeCorrectWhenCorrectFlatNumberGiven(String flatNumber) {
             recipientD2D.clearFlatNumber();
             recipientD2D.enterFlatNumber(flatNumber);
@@ -343,7 +346,7 @@ public class RecipientFormTest extends Base {
 
         @ParameterizedTest
         @EmptySource
-        @ValueSource(strings = {"awdawdawdawdawdwadwadawdawdawdwaddawd", " "})
+        @CsvFileSource(resources = "/ExtraComment/invalidExtraCommentData.csv")
         void shouldDisplayErrorWhenInvalidExtraCommentGiven(String extraComment) {
             recipientD2D.clearExtraComment();
             recipientD2D.enterExtraComment(extraComment);
@@ -354,7 +357,7 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"awdawdawdawdawdwadwadawdawdawdwaddaw", "d"})
+        @CsvFileSource(resources = "/ExtraComment/correctExtraCommentData.csv")
         void shouldExtraCommentBeCorrectWhenCorrectExtraCommentGiven(String extraComment) {
             recipientD2D.clearExtraComment();
             recipientD2D.enterExtraComment(extraComment);
