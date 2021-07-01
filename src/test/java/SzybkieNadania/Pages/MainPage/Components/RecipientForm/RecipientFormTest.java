@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -29,7 +31,8 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {" ", "$", "xrRtQaWKZhK2Ex6ZRuHz6PR8TbeXfDytXmVQNvTStA2E8xbU5hrwi7CQwwz6bM2k4iEAFcUWnNxgK3VZTyvPNGcyzPuKgKr7njKB3eiLBbiqLTaEEEPmcfkKBemihgwN9idmHHKdz2JVwdAQ3aSkBvQcHdaCJqtg2FfhkXARFqgCrRdrJZqCr4Tu2LZBTty4V5k7gjCXUCUNAMYWza6M5tEYteDPrXhSEYZdKHHNV7uS9tSbcwLJpEfj78x"})
+        @EmptySource
+        @CsvFileSource(resources = "/Name/invalidNameData.csv")
         void shouldDisplayErrorWhenInvalidNameGiven(String name) {
             recipientAPM.clearName();
             recipientAPM.enterName(name);
@@ -40,7 +43,7 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"E", "xrRtQaWKZhK2Ex6ZRuHz6PR8TbeXfDytXmVQNvTStA2E8xbU5hrwi7CQwwz6bM2k4iEAFcUWnNxgK3VZTyvPNGcyzPuKgKr7njKB3eiLBbiqLTaEEEPmcfkKBemihgwN9idmHHKdz2JVwdAQ3aSkBvQcHdaCJqtg2FfhkXARFqgCrRdrJZqCr4Tu2LZBTty4V5k7gjCXUCUNAMYWza6M5tEYteDPrXhSEYZdKHHNV7uS9tSbcwLJpEfj78"})
+        @CsvFileSource(resources = "/Name/correctNameData.csv")
         void shouldNameBeCorrectWhenCorrectNameGiven(String name) {
             recipientAPM.clearName();
             recipientAPM.enterName(name);
@@ -51,7 +54,8 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {" ", "o.p", "@pw.pl", "He3DQPGVbWYmQ9LbMinWYRf8deEyJhCZXDUEFfzkKntwTiZerVzqtKKjuMa2bJZbS659kKDP37fqbBJWPjK7aBZ23HN6xbpdLsHYa2FXr2BL25EFWRgZQ29MHCEEUGXQBQjNkDmhHyAF3ThiW7zAgCvTNxMWWhZUbV9XkFircT9pc4SUQPbCYn3mdYRLbkAm6YiwWmtggcwTXxhXYuui6kvGV2Q4kQpDt7Nj8zvhd9F63UvNBZcwgMwivv3@wp.pl", "He3DQPGVbWYmQ9LbMinWYRf8deEyJhCZXDUEFfzkKntwTiZerVzqtKKjuMa2bJZbS659kKDP37fqbBJWPjK7aBZ23HN6xbpdLsHYa2FXr2BL25EFWRgZQ29MHCEEUGXQBQjNkDmhHyAF3ThiW7zAgCvTNxMWWhZUbV9XkFircT9pc4SUQPbCYn3mdYRLbkAm6YiwWmtggcwTXxhXYuui6kvGV2Q4kQpDt7Nj8zvhd9F63UvNBZcwgMwivv3WBz9LH", "$"})
+        @EmptySource
+        @CsvFileSource(resources = "/Email/invalidEmailData.csv")
         void shouldDisplayErrorWhenInvalidEmailGiven(String email) {
             recipientAPM.clearEmail();
             recipientAPM.enterEmail(email);
@@ -62,7 +66,7 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"o@wp.pl", "He3DQPGVbWYmQ9LbMinWYRf8deEyJhCZXDUEFfzkKntwTiZerVzqtKKjuMa2S659@wp.pl"})
+        @CsvFileSource(resources = "/Email/correctEmailData.csv")
         void shouldEmailBeCorrectWhenCorrectEmailGiven(String email) {
             recipientAPM.clearEmail();
             recipientAPM.enterEmail(email);
@@ -73,7 +77,7 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {" ", "a", "1", "$", "999999999"})
+        @CsvFileSource(resources = "/PhoneNumber/invalidPhoneNumberData.csv")
         void shouldDisplayErrorWhenInvalidPhoneNumberGiven(String phoneNumber) {
             recipientAPM.clearPhoneNumber();
             recipientAPM.enterPhoneNumber(phoneNumber);
@@ -84,7 +88,7 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"123123123"})
+        @CsvFileSource(resources = "/PhoneNumber/correctPhoneNumberData.csv")
         void shouldPhoneNumberBeCorrectWhenCorrectPhoneNumberGiven(String phoneNumber) {
             recipientAPM.clearPhoneNumber();
             recipientAPM.enterPhoneNumber(phoneNumber);
@@ -113,7 +117,6 @@ public class RecipientFormTest extends Base {
 
             assertThrows(NoSuchElementException.class, () -> recipientAPM.getParcelLockerError());
         }
-
     }
 
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -129,7 +132,8 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {" ", "$", "xrRtQaWKZhK2Ex6ZRuHz6PR8TbeXfDytXmVQNvTStA2E8xbU5hrwi7CQwwz6bM2k4iEAFcUWnNxgK3VZTyvPNGcyzPuKgKr7njKB3eiLBbiqLTaEEEPmcfkKBemihgwN9idmHHKdz2JVwdAQ3aSkBvQcHdaCJqtg2FfhkXARFqgCrRdrJZqCr4Tu2LZBTty4V5k7gjCXUCUNAMYWza6M5tEYteDPrXhSEYZdKHHNV7uS9tSbcwLJpEfj78x"})
+        @EmptySource
+        @CsvFileSource(resources = "/Name/invalidNameData.csv")
         void shouldDisplayErrorWhenInvalidNameGiven(String name) {
             recipientD2D.clearName();
             recipientD2D.enterName(name);
@@ -140,7 +144,7 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"E", "xrRtQaWKZhK2Ex6ZRuHz6PR8TbeXfDytXmVQNvTStA2E8xbU5hrwi7CQwwz6bM2k4iEAFcUWnNxgK3VZTyvPNGcyzPuKgKr7njKB3eiLBbiqLTaEEEPmcfkKBemihgwN9idmHHKdz2JVwdAQ3aSkBvQcHdaCJqtg2FfhkXARFqgCrRdrJZqCr4Tu2LZBTty4V5k7gjCXUCUNAMYWza6M5tEYteDPrXhSEYZdKHHNV7uS9tSbcwLJpEfj78"})
+        @CsvFileSource(resources = "/Name/correctNameData.csv")
         void shouldNameBeCorrectWhenCorrectNameGiven(String name) {
             recipientD2D.clearName();
             recipientD2D.enterName(name);
@@ -151,7 +155,8 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {" ", "o.p", "@pw.pl", "He3DQPGVbWYmQ9LbMinWYRf8deEyJhCZXDUEFfzkKntwTiZerVzqtKKjuMa2bJZbS659kKDP37fqbBJWPjK7aBZ23HN6xbpdLsHYa2FXr2BL25EFWRgZQ29MHCEEUGXQBQjNkDmhHyAF3ThiW7zAgCvTNxMWWhZUbV9XkFircT9pc4SUQPbCYn3mdYRLbkAm6YiwWmtggcwTXxhXYuui6kvGV2Q4kQpDt7Nj8zvhd9F63UvNBZcwgMwivv3@wp.pl", "He3DQPGVbWYmQ9LbMinWYRf8deEyJhCZXDUEFfzkKntwTiZerVzqtKKjuMa2bJZbS659kKDP37fqbBJWPjK7aBZ23HN6xbpdLsHYa2FXr2BL25EFWRgZQ29MHCEEUGXQBQjNkDmhHyAF3ThiW7zAgCvTNxMWWhZUbV9XkFircT9pc4SUQPbCYn3mdYRLbkAm6YiwWmtggcwTXxhXYuui6kvGV2Q4kQpDt7Nj8zvhd9F63UvNBZcwgMwivv3WBz9LH", "$"})
+        @EmptySource
+        @CsvFileSource(resources = "/Email/invalidEmailData.csv")
         void shouldDisplayErrorWhenInvalidEmailGiven(String email) {
             recipientD2D.clearEmail();
             recipientD2D.enterEmail(email);
@@ -162,7 +167,7 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"o@wp.pl", "He3DQPGVbWYmQ9LbMinWYRf8deEyJhCZXDUEFfzkKntwTiZerVzqtKKjuMa2S659@wp.pl"})
+        @CsvFileSource(resources = "/Email/correctEmailData.csv")
         void shouldEmailBeCorrectWhenCorrectEmailGiven(String email) {
             recipientD2D.clearEmail();
             recipientD2D.enterEmail(email);
@@ -173,18 +178,21 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {" ", "a", "1", "$", "999999999"})
+        @CsvFileSource(resources = "/PhoneNumber/invalidPhoneNumberData.csv")
         void shouldDisplayErrorWhenInvalidPhoneNumberGiven(String phoneNumber) {
             recipientD2D.clearPhoneNumber();
             recipientD2D.enterPhoneNumber(phoneNumber);
 
             (new MainPage(webDriver)).submit();
 
-            assertTrue(recipientD2D.getPhoneNumberError());
+            assertAll(() -> {
+                assertTrue(recipientD2D.getPhoneNumberError());
+                assertDoesNotThrow(() -> recipientD2D.getPhoneNumberError());
+            });
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"123123123"})
+        @CsvFileSource(resources = "/PhoneNumber/correctPhoneNumberData.csv")
         void shouldPhoneNumberBeCorrectWhenCorrectPhoneNumberGiven(String phoneNumber) {
             recipientD2D.clearPhoneNumber();
             recipientD2D.enterPhoneNumber(phoneNumber);
@@ -195,18 +203,22 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {" ", "1", "$", "12312"})
+        @EmptySource
+        @CsvFileSource(resources = "/Address/invalidAddressData.csv")
         void shouldDisplayErrorWhenInvalidZipCodeGiven(String zipCode) {
             recipientD2D.clearZipCode();
             recipientD2D.enterZipCode(zipCode);
 
             (new MainPage(webDriver)).submit();
 
-            assertTrue(recipientD2D.getZipCodeError());
+            assertAll(() -> {
+                assertTrue(recipientD2D.getZipCodeError());
+                assertDoesNotThrow(() -> recipientD2D.getZipCodeError());
+            });
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"96-300", "96-320"})
+        @CsvFileSource(resources = "/Address/correctAddressData.csv")
         void shouldZipCodeBeCorrectWhenCorrectZipCodeGiven(String zipCode) {
             recipientD2D.clearZipCode();
             recipientD2D.enterZipCode(zipCode);
@@ -218,7 +230,7 @@ public class RecipientFormTest extends Base {
 
 
         @ParameterizedTest
-        @ValueSource(strings = {" ", "dawdawdaddawdawdaddawdawdaddawdawdaddawdawdaddawddd", "?!?!?!?!?!?@#@#3$%$@"})
+        @ValueSource(strings = {"dawdawdaddawdawdaddawdawdaddawdawdaddawdawdaddawddd", "?!?!?!?!?!?@#@#3$%$@"})
         void shouldDisplayErrorWhenInvalidTownGiven(String town) {
             recipientD2D.enterZipCode("96-320");
 
@@ -242,7 +254,7 @@ public class RecipientFormTest extends Base {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {" ", "dawdawdaddawdawdaddawdawdaddawdawdaddawdawdaddawddd", "!@!#@$%&*&*#$&*$#(@)"})
+        @ValueSource(strings = {"dawdawdaddawdawdaddawdawdaddawdawdaddawdawdaddawddd", "!@!#@$%&*&*#$&*$#(@)"})
         void shouldDisplayErrorWhenInvalidStreetGiven(String street) {
             recipientD2D.enterZipCode("96-320");
             recipientD2D.enterTown("Mszczonów");
