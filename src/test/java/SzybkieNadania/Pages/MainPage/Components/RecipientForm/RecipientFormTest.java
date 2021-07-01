@@ -16,9 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class RecipientFormTest extends Base {
-    @BeforeAll
-    static void staticSetup() {
-    }
 
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     @Nested
