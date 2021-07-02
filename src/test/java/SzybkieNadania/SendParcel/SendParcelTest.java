@@ -14,7 +14,6 @@ import org.junit.jupiter.params.provider.EnumSource;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 import java.util.logging.Level;
@@ -203,7 +202,7 @@ public class SendParcelTest {
             mainPage.payFor();
 
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
-            PageAction.closeMiddleCookies(webDriver);
+            PageAction.closeBottomCookies(webDriver);
 
             assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
@@ -219,7 +218,7 @@ public class SendParcelTest {
             mainPage.payFor();
 
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
-            PageAction.closeMiddleCookies(webDriver);
+            PageAction.closeBottomCookies(webDriver);
 
             assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
@@ -235,7 +234,7 @@ public class SendParcelTest {
             mainPage.payFor();
 
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
-            PageAction.closeMiddleCookies(webDriver);
+            PageAction.closeBottomCookies(webDriver);
 
             assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
@@ -251,7 +250,7 @@ public class SendParcelTest {
             mainPage.payFor();
 
             (new PaymentPage(webDriver)).choosePaymentMethod("Millennium").finish(Payment.APPROVED);
-            PageAction.closeMiddleCookies(webDriver);
+            PageAction.closeBottomCookies(webDriver);
 
             assertTrue((new SummaryPage(webDriver)).refresh().isPaid());
         }
