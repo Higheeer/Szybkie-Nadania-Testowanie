@@ -29,7 +29,7 @@ public class PageAction {
         List<WebElement> checkBoxes = webDriver.findElements(By.className("checkbox"));
         for (WebElement checkBox : checkBoxes) {
             if (checkBox.getText().contains(name)) {
-                waitUntilIsVisibleAndClick(checkBox, webDriver);
+                waitUntilIsVisible(checkBox, webDriver).click();
                 break;
             }
         }
@@ -46,20 +46,21 @@ public class PageAction {
     }
 
     public static WebElement waitUntilClickable(WebElement webElement, WebDriver webDriver) {
-        (new WebDriverWait(webDriver, Duration.ofSeconds(5))).until(ExpectedConditions.elementToBeClickable(webElement));
-        return webElement;
+        return new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(webElement));
+
     }
 
-    public static void waitUntilClickableAndClick(WebElement webElement, WebDriver webDriver) {
-        (new WebDriverWait(webDriver, Duration.ofSeconds(5))).until(ExpectedConditions.elementToBeClickable(webElement)).click();
+    public static WebElement waitUntilClickable(By by, WebDriver webDriver) {
+        return new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(webDriver.findElement(by)));
+
     }
 
-    public static void waitUntilClickableAndSendKeys(WebElement webElement, String value, WebDriver webDriver) {
-        (new WebDriverWait(webDriver, Duration.ofSeconds(5))).until(ExpectedConditions.elementToBeClickable(webElement)).sendKeys(value);
+    public static WebElement waitUntilIsVisible(WebElement webElement, WebDriver webDriver) {
+        return new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(webElement));
     }
 
-    public static void waitUntilIsVisibleAndClick(WebElement webElement, WebDriver webDriver) {
-        (new WebDriverWait(webDriver, Duration.ofSeconds(5))).until(ExpectedConditions.visibilityOf(webElement)).click();
+    public static WebElement waitUntilIsVisible(By by, WebDriver webDriver) {
+        return new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(webDriver.findElement(by)));
     }
 
     public static void wait(int interval) {
