@@ -18,11 +18,20 @@ public class PageAction {
     }
 
     public static void closeMiddleCookies(WebDriver webDriver) {
-        (new WebDriverWait(webDriver, Duration.ofSeconds(5))).until(ExpectedConditions.visibilityOfElementLocated(By.id("onetrust-accept-btn-handler"))).click();
+        try {
+            (new WebDriverWait(webDriver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(By.id("onetrust-accept-btn-handler"))).click();
+        } catch (Exception e) {
+            return;
+        }
+
     }
 
     public static void closeBottomCookies(WebDriver webDriver) {
-        (new WebDriverWait(webDriver, Duration.ofSeconds(5))).until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-cookie-trigger"))).click();
+        try {
+            (new WebDriverWait(webDriver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-cookie-trigger"))).click();
+        } catch (Exception e) {
+            return;
+        }
     }
 
     public static void checkCheckBox(String name, WebDriver webDriver) {
