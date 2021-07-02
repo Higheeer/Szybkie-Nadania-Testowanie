@@ -209,7 +209,7 @@ public class RecipientFormTest extends Base {
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctAddressData.csv")
         void shouldZipCodeBeCorrectWhenCorrectZipCodeGiven(String zipCode) {
-            recipientD2D.zipCode().fill("96-320");
+            recipientD2D.zipCode().fill(zipCode);
 
             new Actions(webDriver).click().perform();
 
@@ -231,7 +231,7 @@ public class RecipientFormTest extends Base {
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctAddressData.csv")
         void shouldTownBeCorrectWhenCorrectTownGiven(String zipCode, String town) {
-            recipientD2D.zipCode().fill("96-320");
+            recipientD2D.zipCode().fill(zipCode);
             recipientD2D.town().fill(town);
 
             new Actions(webDriver).click().perform();
