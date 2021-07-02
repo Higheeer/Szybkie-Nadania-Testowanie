@@ -5,13 +5,17 @@ import SzybkieNadania.Utils.ElementWrappers.InputField;
 import SzybkieNadania.Utils.PageAction;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class ForeignCompanyInvoice implements Invoice {
     private final WebDriver webDriver;
 
-    @FindBy(xpath = "//*[@id='parcelForm']/div/div[1]/app-dynamic-form/form/app-section[19]/div/app-input/div/div/div/app-complex-select/ng-select/div/div")
+    @FindAll({
+            @FindBy(xpath = "//app-section[24]/div/app-input/div/div/div/app-complex-select/ng-select/div/div"),
+            @FindBy(xpath = "//app-section[19]/div/app-input/div/div/div/app-complex-select/ng-select/div/div")
+    })
     private WebElement nipPrefixInput;
 
     @FindBy(name = "invoice.foreignCompany.nip")
@@ -20,7 +24,10 @@ public class ForeignCompanyInvoice implements Invoice {
     @FindBy(name = "invoice.foreignCompany.companyName")
     private WebElement companyNameInput;
 
-    @FindBy(xpath = "//*[@id='parcelForm']/div/div[1]/app-dynamic-form/form/app-section[22]/div/app-input/div/div/div/app-complex-select/ng-select/div/div")
+    @FindAll({
+            @FindBy(xpath = "//app-section[22]/div/app-input/div/div/div/app-complex-select/ng-select/div/div"),
+            @FindBy(xpath = "//app-section[27]/div/app-input/div/div/div/app-complex-select/ng-select/div/div")
+    })
     private WebElement countryInput;
 
     @FindBy(name = "invoice.foreignCompany.zipCode")
@@ -80,7 +87,7 @@ public class ForeignCompanyInvoice implements Invoice {
     }
 
     protected ComboBox country() {
-        return new ComboBox(companyNameInput, webDriver);
+        return new ComboBox(countryInput, webDriver);
     }
 
     protected InputField zipCode() {

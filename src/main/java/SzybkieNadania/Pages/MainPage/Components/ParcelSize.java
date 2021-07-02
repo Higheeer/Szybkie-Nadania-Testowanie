@@ -40,14 +40,14 @@ public class ParcelSize {
         }
     }
 
-    public Size isSelected(){
-        if(isSelectedSmallParcel() && !isSelectedMediumParcel() && !isSelectedLargeParcel()){
+    public Size isSelected() {
+        if (isSelectedSmallParcel() && !isSelectedMediumParcel() && !isSelectedLargeParcel()) {
             return Size.SMALL;
         }
-        if(isSelectedMediumParcel() && !isSelectedSmallParcel() && !isSelectedLargeParcel()){
+        if (isSelectedMediumParcel() && !isSelectedSmallParcel() && !isSelectedLargeParcel()) {
             return Size.MEDIUM;
         }
-        if(isSelectedLargeParcel() && !isSelectedSmallParcel() && !isSelectedMediumParcel()){
+        if (isSelectedLargeParcel() && !isSelectedSmallParcel() && !isSelectedMediumParcel()) {
             return Size.LARGE;
         }
 

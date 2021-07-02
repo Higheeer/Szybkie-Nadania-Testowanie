@@ -48,13 +48,13 @@ public class IndividualInvoice implements Invoice {
         if (values.length < 7)
             return;
 
-        name().clear().sendKeys(values[0]);
-        email().clear().sendKeys(values[1]);
-        zipCode().clear().sendKeys(values[2]);
-        town().clear().sendKeys(values[3]).submit();
-        street().clear().sendKeys(values[4]).submit();
-        buildingNumber().clear().sendKeys(values[5]);
-        flatNumber().clear().sendKeys(values[6]);
+        name().fill(values[0]);
+        email().fill(values[1]);
+        zipCode().fill(values[2]);
+        town().fill(values[3]);
+        street().fill(values[4]);
+        buildingNumber().fill(values[5]);
+        flatNumber().fill(values[6]);
     }
 
     public boolean copySenderData() {

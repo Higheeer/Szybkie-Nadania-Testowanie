@@ -2,14 +2,11 @@ package SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice;
 
 import SzybkieNadania.Utils.ElementWrappers.ComboBox;
 import SzybkieNadania.Utils.ElementWrappers.InputField;
+import SzybkieNadania.Utils.PageAction;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class CompanyInvoice implements Invoice {
     private final WebDriver webDriver;
@@ -49,13 +46,9 @@ public class CompanyInvoice implements Invoice {
     @Override
     public void fill(String... values) {
         if (values.length == 1) {
-            enterNip(values[0]);
+            nip().fill(values[0]);
+            PageAction.wait(3000);
         }
-    }
-
-    protected void enterNip(String nip) {
-        nipInput.sendKeys(nip);
-        new WebDriverWait(webDriver, Duration.ofSeconds(15)).until(ExpectedConditions.attributeToBe(nipInput, "value", nip));
     }
 
     protected InputField nip() {
