@@ -1,7 +1,6 @@
 package SzybkieNadania.Pages.MainPage.Components.RecipientForm;
 
 import SzybkieNadania.Pages.MainPage.Components.DeliveryMethod;
-import SzybkieNadania.Pages.MainPage.MainPage;
 import SzybkieNadania.Utils.Base;
 import SzybkieNadania.Utils.PageAction;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.EmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.interactions.Actions;
@@ -35,69 +33,63 @@ public class RecipientFormTest extends Base {
         @EmptySource
         @CsvFileSource(resources = "/Name/invalidNameData.csv")
         void shouldDisplayErrorWhenInvalidNameGiven(String name) {
-            recipientAPM.clearName();
-            recipientAPM.enterName(name);
+            recipientAPM.name().fill(name);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(recipientAPM.getNameError());
+            assertTrue(recipientAPM.name().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Name/correctNameData.csv")
         void shouldNameBeCorrectWhenCorrectNameGiven(String name) {
-            recipientAPM.clearName();
-            recipientAPM.enterName(name);
+            recipientAPM.name().fill(name);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> recipientAPM.getNameError());
+            assertFalse(recipientAPM.name().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Email/invalidEmailData.csv")
         void shouldDisplayErrorWhenInvalidEmailGiven(String email) {
-            recipientAPM.clearEmail();
-            recipientAPM.enterEmail(email);
+            recipientAPM.email().fill(email);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(recipientAPM.getEmailError());
+            assertTrue(recipientAPM.email().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Email/correctEmailData.csv")
         void shouldEmailBeCorrectWhenCorrectEmailGiven(String email) {
-            recipientAPM.clearEmail();
-            recipientAPM.enterEmail(email);
+            recipientAPM.email().fill(email);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> recipientAPM.getEmailError());
+            assertFalse(recipientAPM.email().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/PhoneNumber/invalidPhoneNumberData.csv")
         void shouldDisplayErrorWhenInvalidPhoneNumberGiven(String phoneNumber) {
-            recipientAPM.clearPhoneNumber();
-            recipientAPM.enterPhoneNumber(phoneNumber);
+            recipientAPM.phoneNumber().fill(phoneNumber);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(recipientAPM.getPhoneNumberError());
+            assertTrue(recipientAPM.phoneNumber().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/PhoneNumber/correctPhoneNumberData.csv")
         void shouldPhoneNumberBeCorrectWhenCorrectPhoneNumberGiven(String phoneNumber) {
-            recipientAPM.clearPhoneNumber();
-            recipientAPM.enterPhoneNumber(phoneNumber);
+            recipientAPM.phoneNumber().fill(phoneNumber);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> recipientAPM.getPhoneNumberError());
+            assertFalse(recipientAPM.phoneNumber().error());
         }
 
         @ParameterizedTest
@@ -144,227 +136,196 @@ public class RecipientFormTest extends Base {
         @EmptySource
         @CsvFileSource(resources = "/Name/invalidNameData.csv")
         void shouldDisplayErrorWhenInvalidNameGiven(String name) {
-            recipientD2D.clearName();
-            recipientD2D.enterName(name);
+            recipientD2D.name().fill(name);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(recipientD2D.getNameError());
+            assertTrue(recipientD2D.name().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Name/correctNameData.csv")
         void shouldNameBeCorrectWhenCorrectNameGiven(String name) {
-            recipientD2D.clearName();
-            recipientD2D.enterName(name);
+            recipientD2D.name().fill(name);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> recipientD2D.getNameError());
+            assertFalse(recipientD2D.name().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Email/invalidEmailData.csv")
         void shouldDisplayErrorWhenInvalidEmailGiven(String email) {
-            recipientD2D.clearEmail();
-            recipientD2D.enterEmail(email);
+            recipientD2D.email().fill(email);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(recipientD2D.getEmailError());
+            assertTrue(recipientD2D.email().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Email/correctEmailData.csv")
         void shouldEmailBeCorrectWhenCorrectEmailGiven(String email) {
-            recipientD2D.clearEmail();
-            recipientD2D.enterEmail(email);
+            recipientD2D.email().fill(email);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> recipientD2D.getEmailError());
+            assertFalse(recipientD2D.email().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/PhoneNumber/invalidPhoneNumberData.csv")
         void shouldDisplayErrorWhenInvalidPhoneNumberGiven(String phoneNumber) {
-            recipientD2D.clearPhoneNumber();
-            recipientD2D.enterPhoneNumber(phoneNumber);
+            recipientD2D.phoneNumber().fill(phoneNumber);
 
             new Actions(webDriver).click().perform();
 
-            assertAll(() -> {
-                assertTrue(recipientD2D.getPhoneNumberError());
-                assertDoesNotThrow(() -> recipientD2D.getPhoneNumberError());
-            });
+            assertTrue(recipientD2D.phoneNumber().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/PhoneNumber/correctPhoneNumberData.csv")
         void shouldPhoneNumberBeCorrectWhenCorrectPhoneNumberGiven(String phoneNumber) {
-            recipientD2D.clearPhoneNumber();
-            recipientD2D.enterPhoneNumber(phoneNumber);
+            recipientD2D.phoneNumber().fill(phoneNumber);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> recipientD2D.getPhoneNumberError());
+            assertFalse(recipientD2D.phoneNumber().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Address/invalidZipCodeData.csv")
         void shouldDisplayErrorWhenInvalidZipCodeGiven(String zipCode) {
-            recipientD2D.clearZipCode();
-            recipientD2D.enterZipCode(zipCode);
+            recipientD2D.zipCode().fill(zipCode);
 
             new Actions(webDriver).click().perform();
 
-            assertAll(() -> {
-                assertTrue(recipientD2D.getZipCodeError());
-                assertDoesNotThrow(() -> recipientD2D.getZipCodeError());
-            });
+            assertTrue(recipientD2D.zipCode().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctAddressData.csv")
         void shouldZipCodeBeCorrectWhenCorrectZipCodeGiven(String zipCode) {
-            recipientD2D.clearZipCode();
-            recipientD2D.enterZipCode(zipCode);
+            recipientD2D.zipCode().fill("96-320");
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> recipientD2D.getZipCodeError());
+            assertFalse(recipientD2D.zipCode().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Address/invalidTownData.csv")
         void shouldDisplayErrorWhenInvalidTownGiven(String town) {
-            recipientD2D.clearZipCode();
-            recipientD2D.enterZipCode("96-320");
-
-            recipientD2D.clearTown();
-            recipientD2D.enterTown(town);
+            recipientD2D.zipCode().fill("96-320");
+            recipientD2D.town().fill(town);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(recipientD2D.getTownError());
+            assertTrue(recipientD2D.town().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctAddressData.csv")
         void shouldTownBeCorrectWhenCorrectTownGiven(String zipCode, String town) {
-            recipientD2D.clearZipCode();
-            recipientD2D.enterZipCode(zipCode);
-
-            recipientD2D.clearTown();
-            recipientD2D.enterTown(town);
+            recipientD2D.zipCode().fill("96-320");
+            recipientD2D.town().fill(town);
 
             new Actions(webDriver).click().perform();
 
-            assertEquals(town, recipientD2D.getTown());
+            assertFalse(recipientD2D.town().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Address/invalidStreetData.csv")
         void shouldDisplayErrorWhenInvalidStreetGiven(String street) {
-            recipientD2D.clearZipCode();
-            recipientD2D.enterZipCode("96-320");
-            recipientD2D.clearTown();
-            recipientD2D.enterTown("Mszczonów");
+            recipientD2D.zipCode().fill("96-320");
+            recipientD2D.town().fill("Mszczonów");
 
-            recipientD2D.clearStreet();
-            recipientD2D.enterStreet(street);
+            recipientD2D.street().fill(street);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(recipientD2D.getStreetError());
+            assertTrue(recipientD2D.street().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctAddressData.csv")
         void shouldStreetBeCorrectWhenCorrectStreetGiven(String zipCode, String town, String street) {
-            recipientD2D.clearZipCode();
-            recipientD2D.enterZipCode(zipCode);
-            recipientD2D.clearTown();
-            recipientD2D.enterTown(town);
+            recipientD2D.zipCode().fill(zipCode);
+            recipientD2D.town().fill(town);
 
-            recipientD2D.clearStreet();
-            recipientD2D.enterStreet(street);
+            recipientD2D.street().fill(street);
 
             new Actions(webDriver).click().perform();
 
-            assertEquals(street, recipientD2D.getStreet());
+            assertFalse(recipientD2D.street().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Address/invalidNumberData.csv")
         void shouldDisplayErrorWhenInvalidBuildingNumberGiven(String buildingNumber) {
-            recipientD2D.clearBuildingNumber();
-            recipientD2D.enterBuildingNumber(buildingNumber);
+            recipientD2D.buildingNumber().fill(buildingNumber);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(recipientD2D.getBuildingNumberError());
+            assertTrue(recipientD2D.buildingNumber().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctNumberData.csv")
         void shouldBuildingNumberBeCorrectWhenCorrectBuildingNumberGiven(String buildingNumber) {
-            recipientD2D.clearBuildingNumber();
-            recipientD2D.enterBuildingNumber(buildingNumber);
+            recipientD2D.buildingNumber().fill(buildingNumber);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> recipientD2D.getBuildingNumberError());
+            assertFalse(recipientD2D.buildingNumber().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/invalidNumberData.csv")
         void shouldDisplayErrorWhenInvalidFlatNumberGiven(String flatNumber) {
-            recipientD2D.clearFlatNumber();
-            recipientD2D.enterFlatNumber(flatNumber);
+            recipientD2D.flatNumber().fill(flatNumber);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(recipientD2D.getFlatNumberError());
+            assertTrue(recipientD2D.flatNumber().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctNumberData.csv")
         void shouldFlatNumberBeCorrectWhenCorrectFlatNumberGiven(String flatNumber) {
-            recipientD2D.clearFlatNumber();
-            recipientD2D.enterFlatNumber(flatNumber);
+            recipientD2D.flatNumber().fill(flatNumber);
 
+            new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> recipientD2D.getFlatNumberError());
+            assertFalse(recipientD2D.flatNumber().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/ExtraComment/invalidExtraCommentData.csv")
         void shouldDisplayErrorWhenInvalidExtraCommentGiven(String extraComment) {
-            recipientD2D.clearExtraComment();
-            recipientD2D.enterExtraComment(extraComment);
+            recipientD2D.extraComment().fill(extraComment);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(recipientD2D.getExtraCommentError());
+            assertTrue(recipientD2D.extraComment().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/ExtraComment/correctExtraCommentData.csv")
         void shouldExtraCommentBeCorrectWhenCorrectExtraCommentGiven(String extraComment) {
-            recipientD2D.clearExtraComment();
-            recipientD2D.enterExtraComment(extraComment);
+            recipientD2D.extraComment().fill(extraComment);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> recipientD2D.getExtraCommentError());
+            assertFalse(recipientD2D.extraComment().error());
         }
     }
 }
