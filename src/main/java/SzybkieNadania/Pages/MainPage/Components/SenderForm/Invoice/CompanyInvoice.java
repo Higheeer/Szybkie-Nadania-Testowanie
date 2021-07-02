@@ -1,8 +1,7 @@
 package SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice;
 
-import SzybkieNadania.Utils.PageAction;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+import SzybkieNadania.Utils.ElementWrappers.ComboBox;
+import SzybkieNadania.Utils.ElementWrappers.InputField;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,10 +23,10 @@ public class CompanyInvoice implements Invoice {
     @FindBy(name = "invoice.company.zipCode")
     private WebElement zipCodeInput;
 
-    @FindBy(xpath = "//*[@name='invoice.company.town']/div/div/div[2]/input")
+    @FindBy(xpath = "//*[@name='invoice.company.town']/div/div")
     private WebElement townInput;
 
-    @FindBy(xpath = "//*[@name='invoice.company.street']/div/div/div[2]/input")
+    @FindBy(xpath = "//*[@name='invoice.company.street']/div/div")
     private WebElement streetInput;
 
     @FindBy(name = "invoice.company.buildingNo")
@@ -56,136 +55,38 @@ public class CompanyInvoice implements Invoice {
 
     protected void enterNip(String nip) {
         nipInput.sendKeys(nip);
-        new WebDriverWait(webDriver, Duration.ofSeconds(15)).until(ExpectedConditions.attributeToBe(nipInput,"value", nip));
+        new WebDriverWait(webDriver, Duration.ofSeconds(15)).until(ExpectedConditions.attributeToBe(nipInput, "value", nip));
     }
 
-    protected void enterCompanyName(String companyName) {
-        companyNameInput.sendKeys(companyName);
+    protected InputField nip() {
+        return new InputField(nipInput);
     }
 
-    protected void enterZipCode(String zipCode) {
-        zipCodeInput.sendKeys(zipCode);
+    protected InputField companyName() {
+        return new InputField(companyNameInput);
     }
 
-    protected void enterTown(String town) {
-        PageAction.waitUntilClickable(townInput, webDriver);
-        townInput.sendKeys(town);
-        townInput.sendKeys(Keys.ENTER);
+    protected InputField zipCode() {
+        return new InputField(zipCodeInput);
     }
 
-    protected void enterStreet(String street) {
-        PageAction.waitUntilClickable(streetInput, webDriver);
-        streetInput.sendKeys(street);
-        streetInput.sendKeys(Keys.ENTER);
+    protected ComboBox town() {
+        return new ComboBox(townInput, webDriver);
     }
 
-    protected void enterBuildingNumber(String number) {
-        buildingNumberInput.sendKeys(number);
+    protected ComboBox street() {
+        return new ComboBox(streetInput, webDriver);
     }
 
-    protected void enterFlatNumber(String number) {
-        flatNumberInput.sendKeys(number);
+    protected InputField buildingNumber() {
+        return new InputField(buildingNumberInput);
     }
 
-    protected void enterEmail(String email) {
-        PageAction.waitUntilClickable(emailInput, webDriver);
-        emailInput.sendKeys(email);
+    protected InputField flatNumber() {
+        return new InputField(flatNumberInput);
     }
 
-    protected String getNip() {
-        return nipInput.getAttribute("value");
-    }
-
-    protected String getCompanyName() {
-        return companyNameInput.getAttribute("value");
-    }
-
-    protected String getZipCode() {
-        return zipCodeInput.getAttribute("value");
-    }
-
-    protected String getTown() {
-        return webDriver.findElement(By.xpath("//*[@name='invoice.company.town']/div/div/div[2]/span[2]")).getText();
-    }
-
-    protected String getStreet() {
-        return webDriver.findElement(By.xpath("//*[@name='invoice.company.street']/div/div/div[2]/span[2]")).getText();
-    }
-
-    protected String getBuildingNumber() {
-        return buildingNumberInput.getAttribute("value");
-    }
-
-    protected String getFlatNumber() {
-        return flatNumberInput.getAttribute("value");
-    }
-
-    protected String getEmail() {
-        return emailInput.getAttribute("value");
-    }
-
-    protected boolean getNipError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-invoice.company.nip']/following-sibling::small")).isDisplayed();
-    }
-
-    protected boolean getCompanyNameError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-invoice.company.companyName']/following-sibling::small")).isDisplayed();
-    }
-
-    protected boolean getZipCodeError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-invoice.company.zipCode']/following-sibling::small")).isDisplayed();
-    }
-
-    protected boolean getTownError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-invoice.company.town']/following-sibling::small")).isDisplayed();
-    }
-
-    protected boolean getStreetError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-invoice.company.street']/following-sibling::small")).isDisplayed();
-    }
-
-    protected boolean getBuildingNumberError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-invoice.company.buildingNo']/following-sibling::small")).isDisplayed();
-    }
-
-    protected boolean getFlatNumberError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-invoice.company.flatNo']/following-sibling::small")).isDisplayed();
-    }
-
-    protected boolean getEmailError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-invoice.company.email']/following-sibling::small")).isDisplayed();
-    }
-
-
-    protected void clearNip() {
-        PageAction.waitUntilClickable(nipInput, webDriver).clear();
-    }
-
-    protected void clearCompanyName() {
-        PageAction.waitUntilClickable(companyNameInput, webDriver).clear();
-    }
-
-    protected void clearZipCode() {
-        PageAction.waitUntilClickable(zipCodeInput, webDriver).clear();
-    }
-
-    protected void clearTown() {
-        PageAction.waitUntilClickable(townInput, webDriver).clear();
-    }
-
-    protected void clearStreet() {
-        PageAction.waitUntilClickable(streetInput, webDriver).clear();
-    }
-
-    protected void clearBuildingNumber() {
-        PageAction.waitUntilClickable(buildingNumberInput, webDriver).clear();
-    }
-
-    protected void clearFlatNumber() {
-        PageAction.waitUntilClickable(flatNumberInput, webDriver).clear();
-    }
-
-    protected void clearEmail() {
-        PageAction.waitUntilClickable(emailInput, webDriver).clear();
+    protected InputField email() {
+        return new InputField(emailInput);
     }
 }

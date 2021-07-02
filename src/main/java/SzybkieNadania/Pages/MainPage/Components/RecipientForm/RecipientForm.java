@@ -1,7 +1,6 @@
 package SzybkieNadania.Pages.MainPage.Components.RecipientForm;
 
-import SzybkieNadania.Utils.PageAction;
-import org.openqa.selenium.By;
+import SzybkieNadania.Utils.ElementWrappers.InputField;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,52 +25,15 @@ public abstract class RecipientForm {
 
     public abstract void fill(String... values);
 
-    protected void enterName(String name) {
-        PageAction.waitUntilClickableAndSendKeys(nameInput, name, webDriver);
+    protected InputField name() {
+        return new InputField(nameInput);
     }
 
-    protected void enterEmail(String email) {
-        PageAction.waitUntilClickableAndSendKeys(emailInput, email, webDriver);
+    protected InputField email() {
+        return new InputField(emailInput);
     }
 
-    protected void enterPhoneNumber(String phoneNumber) {
-        PageAction.waitUntilClickableAndSendKeys(phoneNumberInput, phoneNumber, webDriver);
-    }
-
-    protected String getName() {
-        return nameInput.getAttribute("value");
-    }
-
-    protected String getEmail() {
-        return emailInput.getAttribute("value");
-    }
-
-
-    protected String getPhoneNumber() {
-        return phoneNumberInput.getAttribute("value");
-    }
-
-    protected boolean getNameError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-targetAddress.name']/following-sibling::small")).isDisplayed();
-    }
-
-    protected boolean getEmailError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-addresseeEmail']/following-sibling::small")).isDisplayed();
-    }
-
-    protected boolean getPhoneNumberError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-phoneNumber']/following-sibling::small")).isDisplayed();
-    }
-
-    protected void clearName() {
-        nameInput.clear();
-    }
-
-    protected void clearEmail() {
-        emailInput.clear();
-    }
-
-    protected void clearPhoneNumber() {
-        phoneNumberInput.clear();
+    protected InputField phoneNumber() {
+        return new InputField(phoneNumberInput);
     }
 }

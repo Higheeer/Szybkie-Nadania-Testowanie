@@ -4,8 +4,8 @@ import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.CompanyInvoic
 import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.ForeignCompanyInvoice;
 import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.IndividualInvoice;
 import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.Invoice;
+import SzybkieNadania.Utils.ElementWrappers.InputField;
 import SzybkieNadania.Utils.PageAction;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -31,9 +31,9 @@ public class SenderForm {
     }
 
     public void fill(String name, String email, String phoneNumber) {
-        enterName(name);
-        enterEmail(email);
-        enterPhoneNumber(phoneNumber);
+        name().sendKeys(name);
+        email().sendKeys(email);
+        phoneNumber().sendKeys(phoneNumber);
     }
 
     public void chooseInvoice(InvoiceType type) {
@@ -62,40 +62,16 @@ public class SenderForm {
         invoice.fill(values);
     }
 
-    protected void enterName(String name) {
-        nameInput.sendKeys(name);
+    protected InputField name() {
+        return new InputField(nameInput);
     }
 
-    protected void enterEmail(String email) {
-        emailInput.sendKeys(email);
+    protected InputField email() {
+        return new InputField(emailInput);
     }
 
-    protected void enterPhoneNumber(String phoneNumber) {
-        phoneNumberInput.sendKeys(phoneNumber);
-    }
-
-    protected boolean getNameError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-senderAddress.name']/following-sibling::small")).isDisplayed();
-    }
-
-    protected boolean getEmailError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-senderAddress.email']/following-sibling::small")).isDisplayed();
-    }
-
-    protected boolean getPhoneNumberError() {
-        return webDriver.findElement(By.xpath("//*[@id='error-senderAddress.phoneNum']/following-sibling::small")).isDisplayed();
-    }
-
-    protected void clearName() {
-        nameInput.clear();
-    }
-
-    protected void clearEmail() {
-        emailInput.clear();
-    }
-
-    protected void clearPhoneNumber() {
-        phoneNumberInput.clear();
+    protected InputField phoneNumber() {
+        return new InputField(phoneNumberInput);
     }
 
     public enum InvoiceType {

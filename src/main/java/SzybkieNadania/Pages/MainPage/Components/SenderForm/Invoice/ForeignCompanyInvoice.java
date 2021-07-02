@@ -1,7 +1,8 @@
 package SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice;
 
+import SzybkieNadania.Utils.ElementWrappers.ComboBox;
+import SzybkieNadania.Utils.ElementWrappers.InputField;
 import SzybkieNadania.Utils.PageAction;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 public class ForeignCompanyInvoice implements Invoice {
     private final WebDriver webDriver;
 
-    @FindBy(css = "app-complex-select > ng-select > div > div > div.ng-input > input[type=text]")
+    @FindBy(xpath = "//*[@id='parcelForm']/div/div[1]/app-dynamic-form/form/app-section[19]/div/app-input/div/div/div/app-complex-select/ng-select/div/div")
     private WebElement nipPrefixInput;
 
     @FindBy(name = "invoice.foreignCompany.nip")
@@ -19,7 +20,7 @@ public class ForeignCompanyInvoice implements Invoice {
     @FindBy(name = "invoice.foreignCompany.companyName")
     private WebElement companyNameInput;
 
-    @FindBy(css = "ng-select.ng-invalid > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)")
+    @FindBy(xpath = "//*[@id='parcelForm']/div/div[1]/app-dynamic-form/form/app-section[22]/div/app-input/div/div/div/app-complex-select/ng-select/div/div")
     private WebElement countryInput;
 
     @FindBy(name = "invoice.foreignCompany.zipCode")
@@ -53,61 +54,57 @@ public class ForeignCompanyInvoice implements Invoice {
         if (values.length < 9)
             return;
 
-        enterNipPrefix(values[0]);
-        enterNip(values[1]);
-        enterCompanyName(values[2]);
-        enterCountry(values[3]);
+        nipPrefix().fill(values[0]);
+        nip().fill(values[1]);
+        companyName().fill(values[2]);
+        country().fill(values[3]);
         PageAction.wait(500);
-        enterZipCode(values[4]);
-        enterTown(values[5]);
-        enterStreet(values[6]);
-        enterBuildingNumber(values[7]);
-        enterFlatNumber(values[8]);
-        enterEmail(values[9]);
+        zipCode().fill(values[4]);
+        town().fill(values[5]);
+        street().fill(values[6]);
+        buildingNumber().fill(values[7]);
+        flatNumber().fill(values[8]);
+        email().fill(values[9]);
     }
 
-    protected void enterNipPrefix(String prefix) {
-        nipPrefixInput.sendKeys(prefix);
-        nipPrefixInput.sendKeys(Keys.ENTER);
+    protected ComboBox nipPrefix() {
+        return new ComboBox(nipPrefixInput, webDriver);
     }
 
-    protected void enterNip(String nip) {
-        nipInput.sendKeys(nip);
+    protected InputField nip() {
+        return new InputField(nipInput);
     }
 
-    protected void enterCompanyName(String name) {
-        companyNameInput.sendKeys(name);
+    protected InputField companyName() {
+        return new InputField(companyNameInput);
     }
 
-    protected void enterCountry(String country) {
-        countryInput.sendKeys(country);
-        countryInput.sendKeys(Keys.ENTER);
+    protected ComboBox country() {
+        return new ComboBox(companyNameInput, webDriver);
     }
 
-    protected void enterZipCode(String zipCode) {
-        PageAction.waitUntilClickableAndSendKeys(zipCodeInput, zipCode, webDriver);
-        townInput.sendKeys(Keys.ENTER);
+    protected InputField zipCode() {
+        return new InputField(zipCodeInput);
     }
 
-    protected void enterTown(String town) {
-        PageAction.waitUntilClickableAndSendKeys(townInput, town, webDriver);
-        townInput.sendKeys(Keys.ENTER);
+    protected InputField town() {
+        return new InputField(townInput);
     }
 
-    protected void enterStreet(String street) {
-        PageAction.waitUntilClickableAndSendKeys(streetInput, street, webDriver);
+    protected InputField street() {
+        return new InputField(streetInput);
     }
 
-    protected void enterBuildingNumber(String number) {
-        buildingNumberInput.sendKeys(number);
+    protected InputField buildingNumber() {
+        return new InputField(buildingNumberInput);
     }
 
-    protected void enterFlatNumber(String number) {
-        flatNumberInput.sendKeys(number);
+    protected InputField flatNumber() {
+        return new InputField(flatNumberInput);
     }
 
-    protected void enterEmail(String email) {
-        emailInput.sendKeys(email);
+    protected InputField email() {
+        return new InputField(emailInput);
     }
 
 }

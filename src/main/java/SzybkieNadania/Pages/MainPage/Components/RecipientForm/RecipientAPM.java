@@ -29,14 +29,14 @@ public class RecipientAPM extends RecipientForm {
         if (values.length < 4)
             return;
 
-        enterName(values[0]);
-        enterEmail(values[1]);
-        enterPhoneNumber(values[2]);
+        name().fill(values[0]);
+        email().fill(values[1]);
+        phoneNumber().fill(values[2]);
         enterParcelLocker(values[3]);
     }
 
     protected void enterParcelLocker(String parcelLocker) {
-        PageAction.waitUntilClickableAndSendKeys(parcelLockerInput, parcelLocker.toUpperCase(), webDriver);
+        PageAction.waitUntilClickable(parcelLockerInput, webDriver).sendKeys(parcelLocker.toUpperCase());
         new WebDriverWait(webDriver, Duration.ofSeconds(2)).until(ExpectedConditions.visibilityOfElementLocated(By.id(parcelLocker)));
         parcelLockerInput.sendKeys(Keys.ENTER);
     }
@@ -50,6 +50,6 @@ public class RecipientAPM extends RecipientForm {
     }
 
     protected void clearParcelLocker() {
-        PageAction.waitUntilClickable(parcelLockerInput,webDriver).clear();
+        PageAction.waitUntilClickable(parcelLockerInput, webDriver).clear();
     }
 }
