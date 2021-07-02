@@ -60,7 +60,7 @@ public class SummaryTest {
         }
 
         @Test
-        void shouldSenderDetailsMatch() {
+        void shouldSenderDetailsMatchWhenCorrectlyFilledSenderForm() {
             mainPage.acceptTermsAndConditions();
             mainPage.submit();
             mainPage.payFor();
@@ -78,7 +78,7 @@ public class SummaryTest {
         }
 
         @Test
-        void shouldReceiverDetailsMatch() {
+        void shouldReceiverDetailsMatchWhenCorrectlyFilledReceiverForm() {
             mainPage.acceptTermsAndConditions();
             mainPage.submit();
             mainPage.payFor();
@@ -96,7 +96,7 @@ public class SummaryTest {
         }
 
         @Test
-        void shouldParcelLockerDetailsMatch() {
+        void shouldParcelLockerDetailsMatchWhenCorrectlyChosenParcelLocker() {
             mainPage.acceptTermsAndConditions();
             mainPage.submit();
             mainPage.payFor();
@@ -115,7 +115,7 @@ public class SummaryTest {
         }
 
         @Test
-        void shouldCompanyInvoiceDetailsMatch() {
+        void shouldCompanyInvoiceDetailsMatchWhenCorrectlyFilledCompanyInvoiceForm() {
             mainPage.wantInvoice(SenderForm.InvoiceType.COMPANY, "1010000338");
             mainPage.acceptTermsAndConditions();
             mainPage.submit();
@@ -136,7 +136,7 @@ public class SummaryTest {
         }
 
         @Test
-        void shouldIndividualInvoiceDetailsMatch() {
+        void shouldIndividualInvoiceDetailsMatchWhenCorrectlyFilledIndividualInvoiceForm() {
             mainPage.wantInvoice(SenderForm.InvoiceType.INDIVIDUAL, "Eryk", "wpl@wp.pl", "31-513", "Kraków", "Olszańska", "25", "31");
             mainPage.acceptTermsAndConditions();
             mainPage.submit();
@@ -156,7 +156,7 @@ public class SummaryTest {
         }
 
         @Test
-        void shouldForeignCompanyInvoiceDetailsMatch() {
+        void shouldForeignCompanyInvoiceDetailsMatchWhenCorrectlyFilledForeignCompanyInvoiceForm() {
             mainPage.wantInvoice(SenderForm.InvoiceType.FOREIGN_COMPANY, "BG", "999999999", "Interactive Museum of Industry", "Bułgaria", "5300", "Gabrovo", "Nikolaevska", "3", "", "bulgarskaMoc@wp.pl");
             mainPage.acceptTermsAndConditions();
             mainPage.submit();
@@ -190,7 +190,7 @@ public class SummaryTest {
         }
 
         @Test
-        void shouldSenderDetailsMatchWhen() {
+        void shouldSenderDetailsMatchWhenWhenCorrectlyFilledSenderForm() {
             mainPage.acceptTermsAndConditions();
             mainPage.submit();
             mainPage.payFor();
@@ -208,7 +208,7 @@ public class SummaryTest {
         }
 
         @Test
-        void shouldReceiverDetailsMatch() {
+        void shouldReceiverDetailsMatchWhenCorrectlyFilledReceiverForm() {
             mainPage.acceptTermsAndConditions();
             mainPage.submit();
             mainPage.payFor();
@@ -228,7 +228,7 @@ public class SummaryTest {
         }
 
         @Test
-        void shouldCompanyInvoiceDetailsMatch() {
+        void shouldCompanyInvoiceDetailsMatchWhenCorrectlyFilledCompanyInvoiceForm() {
             mainPage.wantInvoice(SenderForm.InvoiceType.COMPANY, "1010000338");
             mainPage.acceptTermsAndConditions();
             mainPage.submit();
@@ -249,7 +249,7 @@ public class SummaryTest {
         }
 
         @Test
-        void shouldIndividualInvoiceDetailsMatch() {
+        void shouldIndividualInvoiceDetailsMatchWhenCorrectlyFilledIndividualInvoiceForm() {
             mainPage.wantInvoice(SenderForm.InvoiceType.INDIVIDUAL, "Eryk", "wpl@wp.pl", "31-513", "Kraków", "Olszańska", "25", "31");
             mainPage.acceptTermsAndConditions();
             mainPage.submit();
@@ -269,7 +269,7 @@ public class SummaryTest {
         }
 
         @Test
-        void shouldForeignCompanyInvoiceDetailsMatch() {
+        void shouldForeignCompanyInvoiceDetailsMatchWhenCorrectlyFilledForeignCompanyInvoiceForm() {
             mainPage.wantInvoice(SenderForm.InvoiceType.FOREIGN_COMPANY, "BG", "999999999", "Interactive Museum of Industry", "Bułgaria", "5300", "Gabrovo", "Nikolaevska", "3", "", "bulgarskaMoc@wp.pl");
             mainPage.acceptTermsAndConditions();
             mainPage.submit();
