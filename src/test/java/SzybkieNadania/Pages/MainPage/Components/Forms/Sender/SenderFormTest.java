@@ -1,4 +1,4 @@
-package SzybkieNadania.Pages.MainPage.Components.SenderForm;
+package SzybkieNadania.Pages.MainPage.Components.Forms.Sender;
 
 import SzybkieNadania.Pages.MainPage.MainPage;
 import SzybkieNadania.Utils.Base;

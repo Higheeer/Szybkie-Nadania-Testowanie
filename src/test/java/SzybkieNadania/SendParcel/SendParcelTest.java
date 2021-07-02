@@ -2,7 +2,7 @@ package SzybkieNadania.SendParcel;
 
 import SzybkieNadania.Pages.MainPage.Components.DeliveryMethod;
 import SzybkieNadania.Pages.MainPage.Components.ParcelSize;
-import SzybkieNadania.Pages.MainPage.Components.SenderForm.SenderForm;
+import SzybkieNadania.Pages.MainPage.Components.Forms.Sender.SenderForm;
 import SzybkieNadania.Pages.MainPage.MainPage;
 import SzybkieNadania.Pages.PaymentPage.Components.Payment;
 import SzybkieNadania.Pages.PaymentPage.PaymentPage;

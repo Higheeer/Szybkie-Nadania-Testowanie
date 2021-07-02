@@ -1,6 +1,6 @@
-package SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice;
+package SzybkieNadania.Pages.MainPage.Components.Forms.Sender.Invoice;
 
-import SzybkieNadania.Pages.MainPage.Components.SenderForm.SenderForm;
+import SzybkieNadania.Pages.MainPage.Components.Forms.Sender.SenderForm;
 import SzybkieNadania.Utils.Base;
 import SzybkieNadania.Utils.PageAction;
 import org.junit.jupiter.api.BeforeAll;
