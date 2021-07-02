@@ -1,4 +1,4 @@
-package SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice;
+package SzybkieNadania.Pages.MainPage.Components.Forms.Sender.Invoice;
 
 import SzybkieNadania.Utils.ElementWrappers.ComboBox;
 import SzybkieNadania.Utils.ElementWrappers.InputField;

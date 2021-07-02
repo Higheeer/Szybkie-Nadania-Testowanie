@@ -2,10 +2,10 @@ package SzybkieNadania.Pages.MainPage;
 
 import SzybkieNadania.Pages.MainPage.Components.DeliveryMethod;
 import SzybkieNadania.Pages.MainPage.Components.ParcelSize;
-import SzybkieNadania.Pages.MainPage.Components.RecipientForm.RecipientAPM;
-import SzybkieNadania.Pages.MainPage.Components.RecipientForm.RecipientD2D;
-import SzybkieNadania.Pages.MainPage.Components.RecipientForm.RecipientForm;
-import SzybkieNadania.Pages.MainPage.Components.SenderForm.SenderForm;
+import SzybkieNadania.Pages.MainPage.Components.Forms.Recipient.RecipientAPM;
+import SzybkieNadania.Pages.MainPage.Components.Forms.Recipient.RecipientD2D;
+import SzybkieNadania.Pages.MainPage.Components.Forms.Recipient.RecipientForm;
+import SzybkieNadania.Pages.MainPage.Components.Forms.Sender.SenderForm;
 import SzybkieNadania.Utils.PageAction;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;

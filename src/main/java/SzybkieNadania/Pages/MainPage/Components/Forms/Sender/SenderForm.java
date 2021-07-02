@@ -1,9 +1,9 @@
-package SzybkieNadania.Pages.MainPage.Components.SenderForm;
+package SzybkieNadania.Pages.MainPage.Components.Forms.Sender;
 
-import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.CompanyInvoice;
-import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.ForeignCompanyInvoice;
-import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.IndividualInvoice;
-import SzybkieNadania.Pages.MainPage.Components.SenderForm.Invoice.Invoice;
+import SzybkieNadania.Pages.MainPage.Components.Forms.Sender.Invoice.CompanyInvoice;
+import SzybkieNadania.Pages.MainPage.Components.Forms.Sender.Invoice.ForeignCompanyInvoice;
+import SzybkieNadania.Pages.MainPage.Components.Forms.Sender.Invoice.IndividualInvoice;
+import SzybkieNadania.Pages.MainPage.Components.Forms.Sender.Invoice.Invoice;
 import SzybkieNadania.Utils.ElementWrappers.InputField;
 import SzybkieNadania.Utils.PageAction;
 import org.openqa.selenium.WebDriver;

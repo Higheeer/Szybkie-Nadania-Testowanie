@@ -1,4 +1,4 @@
-package SzybkieNadania.Pages.MainPage.Components.RecipientForm;
+package SzybkieNadania.Pages.MainPage.Components.Forms.Recipient;
 
 import SzybkieNadania.Utils.PageAction;
 import org.openqa.selenium.By;
