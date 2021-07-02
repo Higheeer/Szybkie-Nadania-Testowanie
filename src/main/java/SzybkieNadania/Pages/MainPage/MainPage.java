@@ -83,12 +83,12 @@ public class MainPage {
     }
 
     public void submit() {
-        PageAction.waitUntilClickableAndClick(submitButton, webDriver);
+        PageAction.waitUntilClickable(submitButton, webDriver).click();
     }
 
     public void payFor() {
         try {
-            PageAction.waitUntilIsVisibleAndClick(payButton, webDriver);
+            PageAction.waitUntilIsVisible(payButton, webDriver).click();
         } catch (TimeoutException e) {
             submit();
             payFor();
