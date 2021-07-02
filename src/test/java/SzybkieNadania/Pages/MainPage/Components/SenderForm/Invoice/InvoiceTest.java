@@ -34,7 +34,6 @@ public class InvoiceTest extends Base {
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/NIP/invalidNipData.csv")
-// TODO
         void shouldDisplayErrorWhenInvalidNipGiven(String nip) {
             companyInvoice.nip().fill(nip);
 
@@ -50,7 +49,7 @@ public class InvoiceTest extends Base {
 
             new Actions(webDriver).click().perform();
 
-            PageAction.wait(1000);
+            PageAction.wait(1500);
 
             assertAll(() ->
             {
@@ -397,6 +396,213 @@ public class InvoiceTest extends Base {
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     class ForeignCompany {
+        private ForeignCompanyInvoice foreignCompanyInvoice;
+
+        @BeforeAll
+        void staticSetup() {
+            PageAction.checkCheckBox("Firma za granicą", webDriver);
+            foreignCompanyInvoice = new ForeignCompanyInvoice(webDriver);
+        }
+
+        @ParameterizedTest
+        @CsvFileSource(resources = "/NIP/correctNipPrefixData.csv")
+        void shouldNipPrefixBeCorrectWhenCorrectNipPrefixGiven(String nipPrefix) {
+            foreignCompanyInvoice.nipPrefix().fill(nipPrefix);
+
+            new Actions(webDriver).click().perform();
+
+            assertFalse(foreignCompanyInvoice.nipPrefix().error());
+        }
+
+        @ParameterizedTest
+        @EmptySource
+        @CsvFileSource(resources = "/NIP/invalidNipData.csv")
+        void shouldDisplayErrorWhenInvalidNipGiven(String nip) {
+            foreignCompanyInvoice.nipPrefix().fill("AT");
+            foreignCompanyInvoice.nip().fill(nip);
+
+            new Actions(webDriver).click().perform();
+
+            assertTrue(foreignCompanyInvoice.nip().error());
+        }
+
+        @ParameterizedTest
+        @CsvFileSource(resources = "/NIP/correctNipPrefixData.csv")
+        void shouldNipBeCorrectWhenCorrectNipGiven(String nipPrefix, String nip) {
+            foreignCompanyInvoice.nipPrefix().fill(nipPrefix);
+            foreignCompanyInvoice.nip().fill(nip);
+
+            new Actions(webDriver).click().perform();
+
+            assertFalse(foreignCompanyInvoice.nip().error());
+        }
+
+        @ParameterizedTest
+        @EmptySource
+        @CsvFileSource(resources = "/Name/invalidNameData.csv")
+        void shouldDisplayErrorWhenInvalidCompanyNameGiven(String name) {
+            foreignCompanyInvoice.companyName().fill(name);
+
+            new Actions(webDriver).click().perform();
+
+            assertTrue(foreignCompanyInvoice.companyName().error());
+        }
+
+        @ParameterizedTest
+        @CsvFileSource(resources = "/Name/correctNameData.csv")
+        void shouldCompanyNameBeCorrectWhenCorrectCompanyNameGiven(String name) {
+            foreignCompanyInvoice.companyName().fill(name);
+
+            new Actions(webDriver).click().perform();
+
+            assertFalse(foreignCompanyInvoice.companyName().error());
+        }
+
+        @ParameterizedTest
+        @EmptySource
+        @CsvFileSource(resources = "/Address/Foreign/invalidCountryData.csv")
+        void shouldDisplayErrorWhenInvalidCountryGiven(String country) {
+            foreignCompanyInvoice.country().fill(country);
+
+            new Actions(webDriver).click().perform();
+
+            assertTrue(foreignCompanyInvoice.country().error());
+        }
+
+        @ParameterizedTest
+        @CsvFileSource(resources = "/Address/Foreign/correctCountryData.csv")
+        void shouldCountryBeCorrectWhenCorrectCountryGiven(String country) {
+            foreignCompanyInvoice.country().fill(country);
+
+            new Actions(webDriver).click().perform();
+
+            assertFalse(foreignCompanyInvoice.country().error());
+        }
+
+        @ParameterizedTest
+        @EmptySource
+        @CsvFileSource(resources = "/Address/Foreign/invalidZipCodeData.csv")
+        void shouldZipCodeWhenInvalidZipCodeGiven(String zipCode) {
+            foreignCompanyInvoice.zipCode().fill(zipCode);
+
+            new Actions(webDriver).click().perform();
+
+            assertTrue(foreignCompanyInvoice.zipCode().error());
+        }
+
+        @ParameterizedTest
+        @CsvFileSource(resources = "/Address/Foreign/correctZipCodeData.csv")
+        void shouldZipCodeBeCorrectWhenCorrectZipCodeGiven(String zipCode) {
+            foreignCompanyInvoice.zipCode().fill(zipCode);
+
+            new Actions(webDriver).click().perform();
+
+            assertFalse(foreignCompanyInvoice.zipCode().error());
+        }
+
+        @ParameterizedTest
+        @EmptySource
+        @CsvFileSource(resources = "/Address/Foreign/invalidTownData.csv")
+        void shouldDisplayErrorWhenInvalidTownGiven(String town) {
+            foreignCompanyInvoice.town().fill(town);
+
+            new Actions(webDriver).click().perform();
+
+            assertTrue(foreignCompanyInvoice.town().error());
+        }
+
+        @ParameterizedTest
+        @CsvFileSource(resources = "/Address/Foreign/correctTownData.csv")
+        void shouldTownBeCorrectWhenCorrectTownGiven(String town) {
+            foreignCompanyInvoice.town().fill(town);
+
+            new Actions(webDriver).click().perform();
+
+            assertFalse(foreignCompanyInvoice.town().error());
+        }
+
+        @ParameterizedTest
+        @EmptySource
+        @CsvFileSource(resources = "/Address/Foreign/invalidStreetData.csv")
+        void shouldDisplayErrorWhenInvalidStreetGiven(String street) {
+            foreignCompanyInvoice.street().fill(street);
+
+            new Actions(webDriver).click().perform();
+
+            assertTrue(foreignCompanyInvoice.street().error());
+        }
+
+        @ParameterizedTest
+        @CsvFileSource(resources = "/Address/Foreign/correctStreetData.csv")
+        void shouldStreetBeCorrectWhenCorrectStreetGiven(String street) {
+            foreignCompanyInvoice.street().fill(street);
+
+            new Actions(webDriver).click().perform();
+
+            assertFalse(foreignCompanyInvoice.street().error());
+        }
+
+        @ParameterizedTest
+        @EmptySource
+        @CsvFileSource(resources = "/Address/invalidNumberData.csv")
+        void shouldDisplayErrorWhenInvalidBuildingNumberGiven(String buildingNumber) {
+            foreignCompanyInvoice.buildingNumber().fill(buildingNumber);
+
+            new Actions(webDriver).click().perform();
+
+            assertTrue(foreignCompanyInvoice.buildingNumber().error());
+        }
+
+        @ParameterizedTest
+        @CsvFileSource(resources = "/Address/correctNumberData.csv")
+        void shouldBuildingNumberBeCorrectWhenCorrectBuildingNumberGiven(String buildingNumber) {
+            foreignCompanyInvoice.buildingNumber().fill(buildingNumber);
+
+            new Actions(webDriver).click().perform();
+
+            assertFalse(foreignCompanyInvoice.buildingNumber().error());
+        }
+
+        @ParameterizedTest
+        @CsvFileSource(resources = "/Address/invalidNumberData.csv")
+        void shouldDisplayErrorWhenInvalidFlatNumberGiven(String flatNumber) {
+            foreignCompanyInvoice.flatNumber().fill(flatNumber);
+
+            new Actions(webDriver).click().perform();
+
+            assertTrue(foreignCompanyInvoice.flatNumber().error());
+        }
+
+        @ParameterizedTest
+        @CsvFileSource(resources = "/Address/correctNumberData.csv")
+        void shouldFlatNumberBeCorrectWhenCorrectFlatNumberGiven(String flatNumber) {
+            foreignCompanyInvoice.flatNumber().fill(flatNumber);
+
+            new Actions(webDriver).click().perform();
+
+            assertFalse(foreignCompanyInvoice.flatNumber().error());
+        }
+
+        @ParameterizedTest
+        @EmptySource
+        @CsvFileSource(resources = "/Email/invalidEmailData.csv")
+        void shouldDisplayErrorWhenInvalidEmailGiven(String email) {
+            foreignCompanyInvoice.email().fill(email);
+
+            new Actions(webDriver).click().perform();
+
+            assertTrue(foreignCompanyInvoice.email().error());
+        }
+
+        @ParameterizedTest
+        @CsvFileSource(resources = "/Email/correctEmailData.csv")
+        void shouldEmailBeCorrectWhenCorrectEmailGiven(String email) {
+            foreignCompanyInvoice.email().fill(email);
+
+            new Actions(webDriver).click().perform();
+
+            assertFalse(foreignCompanyInvoice.email().error());
+        }
 
     }
 }
