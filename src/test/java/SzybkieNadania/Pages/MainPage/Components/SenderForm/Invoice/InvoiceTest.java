@@ -10,7 +10,6 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.EmptySource;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,23 +34,19 @@ public class InvoiceTest extends Base {
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/NIP/invalidNipData.csv")
+// TODO
         void shouldDisplayErrorWhenInvalidNipGiven(String nip) {
-            companyInvoice.clearNip();
-            companyInvoice.enterNip(nip);
+            companyInvoice.nip().fill(nip);
 
             new Actions(webDriver).click().perform();
 
-            assertAll(() -> {
-                assertDoesNotThrow(() -> companyInvoice.getNipError());
-                assertTrue(companyInvoice.getNipError());
-            });
+            assertTrue(companyInvoice.nip().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/NIP/correctNipData.csv")
         void shouldNipBeCorrectWhenCorrectNipGivenAndFillOtherFields(String nip, String expectedCompanyName, String expectedZipCode, String expectedTown, String expectedStreet, String expectedBuildingNumber) {
-            companyInvoice.clearNip();
-            companyInvoice.enterNip(nip.trim());
+            companyInvoice.nip().fill(nip);
 
             new Actions(webDriver).click().perform();
 
@@ -59,11 +54,11 @@ public class InvoiceTest extends Base {
 
             assertAll(() ->
             {
-                assertEquals(expectedCompanyName, companyInvoice.getCompanyName());
-                assertEquals(expectedZipCode, companyInvoice.getZipCode());
-                assertEquals(expectedTown, companyInvoice.getTown());
-                assertEquals(expectedStreet, companyInvoice.getStreet());
-                assertEquals(expectedBuildingNumber, companyInvoice.getBuildingNumber());
+                assertEquals(expectedCompanyName, companyInvoice.companyName().value());
+                assertEquals(expectedZipCode, companyInvoice.zipCode().value());
+                assertEquals(expectedTown, companyInvoice.town().value());
+                assertEquals(expectedStreet, companyInvoice.street().value());
+                assertEquals(expectedBuildingNumber, companyInvoice.buildingNumber().value());
             });
         }
 
@@ -71,178 +66,154 @@ public class InvoiceTest extends Base {
         @EmptySource
         @CsvFileSource(resources = "/Name/invalidNameData.csv")
         void shouldDisplayErrorWhenInvalidCompanyNameGiven(String name) {
-            companyInvoice.clearCompanyName();
-            companyInvoice.enterCompanyName(name);
+            companyInvoice.companyName().fill(name);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(companyInvoice.getCompanyNameError());
+            assertTrue(companyInvoice.companyName().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Name/correctNameData.csv")
         void shouldCompanyNameBeCorrectWhenCorrectCompanyNameGiven(String name) {
-            companyInvoice.clearCompanyName();
-            companyInvoice.enterCompanyName(name);
+            companyInvoice.companyName().fill(name);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> companyInvoice.getCompanyNameError());
+            assertFalse(companyInvoice.companyName().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Address/invalidZipCodeData.csv")
         void shouldDisplayErrorWhenInvalidZipCodeGiven(String zipCode) {
-            companyInvoice.clearZipCode();
-            companyInvoice.enterZipCode(zipCode);
+            companyInvoice.zipCode().fill(zipCode);
 
             new Actions(webDriver).click().perform();
 
-            assertAll(() -> {
-                assertTrue(companyInvoice.getZipCodeError());
-                assertDoesNotThrow(() -> companyInvoice.getZipCodeError());
-            });
+            assertTrue(companyInvoice.zipCode().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctAddressData.csv")
         void shouldZipCodeBeCorrectWhenCorrectZipCodeGiven(String zipCode) {
-            companyInvoice.clearZipCode();
-            companyInvoice.enterZipCode(zipCode);
+            companyInvoice.companyName().fill(zipCode);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> companyInvoice.getZipCodeError());
+            assertFalse(companyInvoice.companyName().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Address/invalidTownData.csv")
         void shouldDisplayErrorWhenInvalidTownGiven(String town) {
-            companyInvoice.clearZipCode();
-            companyInvoice.enterZipCode("96-320");
-
-            companyInvoice.clearTown();
-            companyInvoice.enterTown(town);
+            companyInvoice.zipCode().fill("96-320");
+            companyInvoice.town().fill(town);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(companyInvoice.getTownError());
+            assertTrue(companyInvoice.town().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctAddressData.csv")
         void shouldTownBeCorrectWhenCorrectTownGiven(String zipCode, String town) {
-            companyInvoice.clearZipCode();
-            companyInvoice.enterZipCode(zipCode);
-
-            companyInvoice.clearTown();
-            companyInvoice.enterTown(town);
+            companyInvoice.zipCode().fill(zipCode);
+            companyInvoice.town().fill(town);
 
             new Actions(webDriver).click().perform();
 
-            assertEquals(town, companyInvoice.getTown());
+            assertFalse(companyInvoice.town().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Address/invalidStreetData.csv")
         void shouldDisplayErrorWhenInvalidStreetGiven(String street) {
-            companyInvoice.clearZipCode();
-            companyInvoice.enterZipCode("96-320");
-            companyInvoice.clearTown();
-            companyInvoice.enterTown("Mszczonów");
+            companyInvoice.zipCode().fill("96-320");
+            companyInvoice.town().fill("Mszczonów");
 
-            companyInvoice.clearStreet();
-            companyInvoice.enterStreet(street);
+            companyInvoice.street().fill(street);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(companyInvoice.getStreetError());
+            assertTrue(companyInvoice.street().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctAddressData.csv")
         void shouldStreetBeCorrectWhenCorrectStreetGiven(String zipCode, String town, String street) {
-            companyInvoice.clearZipCode();
-            companyInvoice.enterZipCode(zipCode);
-            companyInvoice.clearTown();
-            companyInvoice.enterTown(town);
+            companyInvoice.zipCode().fill(zipCode);
+            companyInvoice.town().fill(town);
 
-            companyInvoice.clearStreet();
-            companyInvoice.enterStreet(street);
+            companyInvoice.street().fill(street);
 
             new Actions(webDriver).click().perform();
 
-            assertEquals(street, companyInvoice.getStreet());
+            assertFalse(companyInvoice.street().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Address/invalidNumberData.csv")
         void shouldDisplayErrorWhenInvalidBuildingNumberGiven(String buildingNumber) {
-            companyInvoice.clearBuildingNumber();
-            companyInvoice.enterBuildingNumber(buildingNumber);
+            companyInvoice.buildingNumber().fill(buildingNumber);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(companyInvoice.getBuildingNumberError());
+            assertTrue(companyInvoice.buildingNumber().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctNumberData.csv")
         void shouldBuildingNumberBeCorrectWhenCorrectBuildingNumberGiven(String buildingNumber) {
-            companyInvoice.clearBuildingNumber();
-            companyInvoice.enterBuildingNumber(buildingNumber);
+            companyInvoice.buildingNumber().fill(buildingNumber);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> companyInvoice.getBuildingNumberError());
+            assertFalse(companyInvoice.buildingNumber().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/invalidNumberData.csv")
         void shouldDisplayErrorWhenInvalidFlatNumberGiven(String flatNumber) {
-            companyInvoice.clearFlatNumber();
-            companyInvoice.enterFlatNumber(flatNumber);
+            companyInvoice.flatNumber().fill(flatNumber);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(companyInvoice.getFlatNumberError());
+            assertTrue(companyInvoice.flatNumber().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctNumberData.csv")
         void shouldFlatNumberBeCorrectWhenCorrectFlatNumberGiven(String flatNumber) {
-            companyInvoice.clearFlatNumber();
-            companyInvoice.enterFlatNumber(flatNumber);
+            companyInvoice.flatNumber().fill(flatNumber);
 
+            new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> companyInvoice.getFlatNumberError());
+            assertFalse(companyInvoice.flatNumber().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Email/invalidEmailData.csv")
         void shouldDisplayErrorWhenInvalidEmailGiven(String email) {
-            companyInvoice.clearEmail();
-            companyInvoice.enterEmail(email);
+            companyInvoice.email().fill(email);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(companyInvoice.getEmailError());
+            assertTrue(companyInvoice.email().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Email/correctEmailData.csv")
         void shouldEmailBeCorrectWhenCorrectEmailGiven(String email) {
-            companyInvoice.clearEmail();
-            companyInvoice.enterEmail(email);
+            companyInvoice.email().fill(email);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> companyInvoice.getEmailError());
+            assertFalse(companyInvoice.email().error());
         }
     }
 
@@ -268,178 +239,157 @@ public class InvoiceTest extends Base {
         @EmptySource
         @CsvFileSource(resources = "/Name/invalidNameData.csv")
         void shouldDisplayErrorWhenInvalidNameGiven(String name) {
-            individualInvoice.clearName();
-            individualInvoice.enterName(name);
+            individualInvoice.name().fill(name);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(individualInvoice.getNameError());
+            assertTrue(individualInvoice.name().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Name/correctNameData.csv")
         void shouldNameBeCorrectWhenCorrectNameGiven(String name) {
-            individualInvoice.clearName();
-            individualInvoice.enterName(name);
+            individualInvoice.name().fill(name);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> individualInvoice.getNameError());
+            assertFalse(individualInvoice.name().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Email/invalidEmailData.csv")
         void shouldDisplayErrorWhenInvalidEmailGiven(String email) {
-            individualInvoice.clearEmail();
-            individualInvoice.enterEmail(email);
+            individualInvoice.email().fill(email);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(individualInvoice.getEmailError());
+            assertTrue(individualInvoice.email().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Email/correctEmailData.csv")
         void shouldEmailBeCorrectWhenCorrectEmailGiven(String email) {
-            individualInvoice.clearEmail();
-            individualInvoice.enterEmail(email);
+            individualInvoice.email().fill(email);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> individualInvoice.getEmailError());
+            assertFalse(individualInvoice.email().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Address/invalidZipCodeData.csv")
         void shouldDisplayErrorWhenInvalidZipCodeGiven(String zipCode) {
-            individualInvoice.clearZipCode();
-            individualInvoice.enterZipCode(zipCode);
+            individualInvoice.zipCode().fill(zipCode);
 
             new Actions(webDriver).click().perform();
 
-            assertAll(() -> {
-                assertTrue(individualInvoice.getZipCodeError());
-                assertDoesNotThrow(() -> individualInvoice.getZipCodeError());
-            });
+            assertTrue(individualInvoice.zipCode().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctAddressData.csv")
         void shouldZipCodeBeCorrectWhenCorrectZipCodeGiven(String zipCode) {
-            individualInvoice.clearZipCode();
-            individualInvoice.enterZipCode(zipCode);
+            individualInvoice.zipCode().fill(zipCode);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> individualInvoice.getZipCodeError());
+            assertFalse(individualInvoice.zipCode().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Address/invalidTownData.csv")
         void shouldDisplayErrorWhenInvalidTownGiven(String town) {
-            individualInvoice.clearZipCode();
-            individualInvoice.enterZipCode("96-320");
+            individualInvoice.zipCode().fill("96-320");
 
-            individualInvoice.clearTown();
-            individualInvoice.enterTown(town);
+            individualInvoice.town().fill(town);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(individualInvoice.getTownError());
+            assertTrue(individualInvoice.town().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctAddressData.csv")
         void shouldTownBeCorrectWhenCorrectTownGiven(String zipCode, String town) {
-            individualInvoice.clearZipCode();
-            individualInvoice.enterZipCode(zipCode);
+            individualInvoice.zipCode().fill(zipCode);
 
-            individualInvoice.clearTown();
-            individualInvoice.enterTown(town);
+            individualInvoice.town().fill(town);
 
             new Actions(webDriver).click().perform();
 
-            assertEquals(town, individualInvoice.getTown());
+            System.out.println(individualInvoice.town().value());
+            assertFalse(individualInvoice.town().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Address/invalidStreetData.csv")
         void shouldDisplayErrorWhenInvalidStreetGiven(String street) {
-            individualInvoice.clearZipCode();
-            individualInvoice.enterZipCode("96-320");
-            individualInvoice.clearTown();
-            individualInvoice.enterTown("Mszczonów");
+            individualInvoice.zipCode().fill("96-320");
+            individualInvoice.town().fill("Mszczonów");
 
-            individualInvoice.clearStreet();
-            individualInvoice.enterStreet(street);
+            individualInvoice.street().fill(street);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(individualInvoice.getStreetError());
+            assertTrue(individualInvoice.street().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctAddressData.csv")
         void shouldStreetBeCorrectWhenCorrectStreetGiven(String zipCode, String town, String street) {
-            individualInvoice.clearZipCode();
-            individualInvoice.enterZipCode(zipCode);
-            individualInvoice.clearTown();
-            individualInvoice.enterTown(town);
+            individualInvoice.zipCode().fill(zipCode);
+            individualInvoice.town().fill(town);
 
-            individualInvoice.clearStreet();
-            individualInvoice.enterStreet(street);
+            individualInvoice.street().fill(street);
 
             new Actions(webDriver).click().perform();
 
-            assertEquals(street, individualInvoice.getStreet());
+            assertFalse(individualInvoice.street().error());
         }
 
         @ParameterizedTest
         @EmptySource
         @CsvFileSource(resources = "/Address/invalidNumberData.csv")
         void shouldDisplayErrorWhenInvalidBuildingNumberGiven(String buildingNumber) {
-            individualInvoice.clearBuildingNumber();
-            individualInvoice.enterBuildingNumber(buildingNumber);
+            individualInvoice.buildingNumber().fill(buildingNumber);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(individualInvoice.getBuildingNumberError());
+            assertTrue(individualInvoice.buildingNumber().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctNumberData.csv")
         void shouldBuildingNumberBeCorrectWhenCorrectBuildingNumberGiven(String buildingNumber) {
-            individualInvoice.clearBuildingNumber();
-            individualInvoice.enterBuildingNumber(buildingNumber);
+            individualInvoice.buildingNumber().fill(buildingNumber);
 
             new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> individualInvoice.getBuildingNumberError());
+            assertFalse(individualInvoice.buildingNumber().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/invalidNumberData.csv")
         void shouldDisplayErrorWhenInvalidFlatNumberGiven(String flatNumber) {
-            individualInvoice.clearFlatNumber();
-            individualInvoice.enterFlatNumber(flatNumber);
+            individualInvoice.flatNumber().fill(flatNumber);
 
             new Actions(webDriver).click().perform();
 
-            assertTrue(individualInvoice.getFlatNumberError());
+            assertTrue(individualInvoice.flatNumber().error());
         }
 
         @ParameterizedTest
         @CsvFileSource(resources = "/Address/correctNumberData.csv")
         void shouldFlatNumberBeCorrectWhenCorrectFlatNumberGiven(String flatNumber) {
-            individualInvoice.clearFlatNumber();
-            individualInvoice.enterFlatNumber(flatNumber);
+            individualInvoice.flatNumber().fill(flatNumber);
 
+            new Actions(webDriver).click().perform();
 
-            assertThrows(NoSuchElementException.class, () -> individualInvoice.getFlatNumberError());
+            assertFalse(individualInvoice.flatNumber().error());
         }
 
     }
