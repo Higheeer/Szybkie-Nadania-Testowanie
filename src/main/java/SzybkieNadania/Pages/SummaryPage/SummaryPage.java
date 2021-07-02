@@ -1,5 +1,10 @@
 package SzybkieNadania.Pages.SummaryPage;
 
+import SzybkieNadania.Pages.MainPage.Components.Forms.Sender.SenderForm;
+import SzybkieNadania.Pages.SummaryPage.Components.InvoiceDetails;
+import SzybkieNadania.Pages.SummaryPage.Components.ParcelLockerDetails;
+import SzybkieNadania.Pages.SummaryPage.Components.ReceiverDetails;
+import SzybkieNadania.Pages.SummaryPage.Components.SenderDetails;
 import SzybkieNadania.Utils.PageAction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -14,13 +19,36 @@ import java.time.Duration;
 
 public class SummaryPage {
     private final WebDriver webDriver;
+    private final SenderForm.InvoiceType invoiceType;
 
-    @FindBy(css = "#publicPage > div.container.full-height > app-summary > section:nth-child(2) > div > div:nth-child(2) > div > button > span")
+    @FindBy(xpath = "//*[@id='publicPage']/div[2]/app-summary/section[1]/div/div[2]/div/button/span")
     private WebElement refreshButton;
 
+    public SummaryPage(SenderForm.InvoiceType invoiceType, WebDriver webDriver) {
+        this.webDriver = webDriver;
+        this.invoiceType = invoiceType;
+        PageFactory.initElements(this.webDriver, this);
+    }
     public SummaryPage(WebDriver webDriver) {
         this.webDriver = webDriver;
+        this.invoiceType = null;
         PageFactory.initElements(this.webDriver, this);
+    }
+
+    public SenderDetails senderDetails() {
+        return new SenderDetails(webDriver);
+    }
+
+    public ReceiverDetails receiverDetails() {
+        return new ReceiverDetails(webDriver);
+    }
+
+    public ParcelLockerDetails parcelLockerDetails() {
+        return new ParcelLockerDetails(webDriver);
+    }
+
+    public InvoiceDetails invoiceDetails() {
+        return new InvoiceDetails(invoiceType,webDriver);
     }
 
     public SummaryPage refresh() {
